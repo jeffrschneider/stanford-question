@@ -74,14 +74,17 @@ public class DatasetTest {
                             for (int i = 0; i < sentence.words().size(); i++) {
                                 final String tag = sentence.nerTag(i);
                                 if (tag.equals("PERSON") || tag.equals("ORGANIZATION")) {
-                                    answer += sentence.word(i);
+                                    answer += " " + sentence.word(i);
                                 } else if (answer.length() > 0) {
                                     break;
                                 }
                             }
+                            answer = answer.trim();
                             if (answer.length() > 0) {
                                 if (qas.isAnswer(answer))
                                     correct++;
+                                else
+                                    System.out.println(qas.getQuestion() + "\t" + qas.getAnswers().get(0).getText() + "\t" + answer);
                                 break;
                             }
                         }
