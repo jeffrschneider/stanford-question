@@ -11,7 +11,7 @@ public class DatasetTest {
 
     public static void main(final String[] args) throws IOException {
         final Dataset dataset = Dataset.loadDataset("dev-v1.0.json");
-        test1WhoQuestion(dataset);
+        printQuestionTrees(dataset);
     }
 
     private static void printOrderedFirstWord(final Dataset dataset) {
@@ -94,5 +94,24 @@ public class DatasetTest {
             }
         }
         System.out.println(correct + "/" + total);
+    }
+
+    private static void printQuestionTrees(final Dataset dataset) {
+        for (final Article article : dataset.getData()) {
+            for (final Paragraph paragraph : article.getParagraphs()) {
+                for (final QuestionAnswerService qas : paragraph.getQas()) {
+                    for (final Sentence contextSentence : paragraph.getContextSentences()) {
+                        if (contextSentence.text().contains(qas.getAnswers().get(0).getText())) {
+                            System.out.println("Question tree:");
+                            qas.getQuestionSentence().parse().pennPrint();
+                            System.out.println("Context sentence tree:");
+                            contextSentence.parse().pennPrint();
+                            System.out.println("=========");
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
