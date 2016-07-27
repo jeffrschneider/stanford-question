@@ -1,5 +1,6 @@
 package me.rabrg.squad.dataset;
 
+import edu.stanford.nlp.simple.Sentence;
 import me.rabrg.util.MapUtil;
 
 import java.io.IOException;
@@ -10,7 +11,7 @@ public class DatasetTest {
 
     public static void main(final String[] args) throws IOException {
         final Dataset dataset = Dataset.loadDataset("dev-v1.0.json");
-        printSentenceAnswerNERTag(dataset, "ORGANIZATION", "PERSON");
+        test1WhoQuestion(dataset);
     }
 
     private static void printOrderedFirstWord(final Dataset dataset) {
@@ -60,5 +61,35 @@ public class DatasetTest {
                 }
             }
         }
+    }
+
+    private static void test1WhoQuestion(final Dataset dataset) {
+        int correct = 0, total = 0;
+        for (final Article article : dataset.getData()) {
+            for (final Paragraph paragraph : article.getParagraphs()) {
+                for (final QuestionAnswerService qas : paragraph.getQas()) {
+                    if (qas.getQuestion().startsWith("Who")) {
+                        for (final Sentence sentence : paragraph.getOrderedRelevancyContextSentences(qas.getQuestionSentence())) {
+                            String answer = "";
+                            for (int i = 0; i < sentence.words().size(); i++) {
+                                final String tag = sentence.nerTag(i);
+                                if (tag.equals("PERSON") || tag.equals("ORGANIZATION")) {
+                                    answer += sentence.word(i);
+                                } else if (answer.length() > 0) {
+                                    break;
+                                }
+                            }
+                            if (answer.length() > 0) {
+                                if (qas.isAnswer(answer))
+                                    correct++;
+                                break;
+                            }
+                        }
+                        total++;
+                    }
+                }
+            }
+        }
+        System.out.println(correct + "/" + total);
     }
 }

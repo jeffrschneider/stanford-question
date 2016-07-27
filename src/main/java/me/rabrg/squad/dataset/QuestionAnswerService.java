@@ -30,6 +30,13 @@ public final class QuestionAnswerService {
         return questionSentence;
     }
 
+    public boolean isAnswer(final String text) {
+        for (final Answer answer : getAnswers())
+            if (answer.getText().equals(text))
+                return true;
+        return false;
+    }
+
     @Override
     public String toString() {
         return "QuestionAnswerService{" +
