@@ -12,7 +12,7 @@ public class DatasetTest {
 
     public static void main(final String[] args) throws IOException {
         final Dataset dataset = Dataset.loadDataset("dev-v1.0.json");
-        printQATriples(dataset);
+        test1WhoQuestion(dataset);
     }
 
     private static void printOrderedFirstWord(final Dataset dataset) {
@@ -70,8 +70,9 @@ public class DatasetTest {
             for (final Paragraph paragraph : article.getParagraphs()) {
                 for (final QuestionAnswerService qas : paragraph.getQas()) {
                     if (qas.getQuestion().startsWith("Who")) {
+                        boolean answeredCorectly = false;
+                        String answer = "";
                         for (final Sentence sentence : paragraph.getOrderedRelevancyContextSentences(qas.getQuestionSentence())) {
-                            String answer = "";
                             for (int i = 0; i < sentence.words().size(); i++) {
                                 final String tag = sentence.nerTag(i);
                                 if (tag.equals("PERSON") || tag.equals("ORGANIZATION")) {
@@ -82,13 +83,14 @@ public class DatasetTest {
                             }
                             answer = answer.trim();
                             if (answer.length() > 0) {
-                                if (qas.isAnswer(answer))
+                                if (qas.isAnswer(answer)) {
                                     correct++;
-                                else
-                                    System.out.println(qas.getQuestion() + "\t" + qas.getAnswers().get(0).getText() + "\t" + answer);
+                                    answeredCorectly = true;
+                                }
                                 break;
                             }
                         }
+                        System.out.println(qas.getQuestion() + "\t" + qas.getAnswers().get(0).getText() + "\t" + answer + "\t" + answeredCorectly + "\t" + (answeredCorectly ? "CORRECT" : "INCORRECT"));
                         total++;
                     }
                 }

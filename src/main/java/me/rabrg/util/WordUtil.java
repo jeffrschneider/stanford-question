@@ -49,4 +49,17 @@ public class WordUtil {
         }
         return frequency;
     }
+
+    public static double getTripleMatchMultiplier(final Sentence target, final Sentence source) {
+        final TripleUtil.Triple targetTriple = TripleUtil.getTriple(target.text());
+        final TripleUtil.Triple sourceTriple = TripleUtil.getTriple(source.text());
+        double multiplier = 1.0;
+        if (targetTriple.getSubject() != null && sourceTriple.getSubject() != null && targetTriple.getSubject().equals(sourceTriple.getSubject()))
+            multiplier += 0.33;
+        if (targetTriple.getRelation() != null && sourceTriple.getRelation() != null && targetTriple.getRelation().equals(sourceTriple.getRelation()))
+            multiplier += 0.33;
+        if (targetTriple.getObject() != null && sourceTriple.getObject() != null && targetTriple.getObject().equals(sourceTriple.getObject()))
+            multiplier += 0.33;
+        return multiplier;
+    }
 }
