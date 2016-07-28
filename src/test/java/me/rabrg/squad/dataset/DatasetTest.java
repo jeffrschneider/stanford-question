@@ -2,6 +2,7 @@ package me.rabrg.squad.dataset;
 
 import edu.stanford.nlp.simple.Sentence;
 import me.rabrg.util.MapUtil;
+import me.rabrg.util.TripleUtil;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -11,7 +12,7 @@ public class DatasetTest {
 
     public static void main(final String[] args) throws IOException {
         final Dataset dataset = Dataset.loadDataset("dev-v1.0.json");
-        printQuestionTrees(dataset);
+        printQATriples(dataset);
     }
 
     private static void printOrderedFirstWord(final Dataset dataset) {
@@ -113,5 +114,35 @@ public class DatasetTest {
                 }
             }
         }
+    }
+
+    private static void printQATriples(final Dataset dataset) {
+        int totalMatches = 0, total = 0;
+        for (final Article article : dataset.getData()) {
+            for (final Paragraph paragraph : article.getParagraphs()) {
+                for (final QuestionAnswerService qas : paragraph.getQas()) {
+                    if (qas.getQuestion().startsWith("Who")) {
+                        for (final Sentence sentence : paragraph.getContextSentences()) {
+                            if (sentence.text().contains(qas.getAnswers().get(0).getText())) {
+                                final TripleUtil.Triple questionTriple = TripleUtil.getTriple(qas.getQuestion());
+                                final TripleUtil.Triple contextTriple = TripleUtil.getTriple(sentence.text());
+                                int matches = 0;
+                                if (questionTriple.getSubject() != null && contextTriple.getSubject() != null && questionTriple.getSubject().equals(contextTriple.getSubject()))
+                                    matches++;
+                                if (questionTriple.getRelation() != null && contextTriple.getRelation() != null && questionTriple.getRelation().equals(contextTriple.getRelation()))
+                                    matches++;
+                                if (questionTriple.getObject() != null && contextTriple.getObject() != null && questionTriple.getObject().equals(contextTriple.getObject()))
+                                    matches++;
+                                if (matches > 0)
+                                    totalMatches++;
+                                total++;
+                                System.out.println(qas.getQuestion() + "\t" + questionTriple.getSubject() + "\t" + questionTriple.getRelation() + "\t" + questionTriple.getObject() + "\t" + sentence.text() + "\t" + contextTriple.getSubject() + "\t" + contextTriple.getRelation() + "\t" + contextTriple.getObject() + "\t" + matches);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println(totalMatches + "/" + total);
     }
 }
