@@ -66,10 +66,7 @@ public class DatasetTest {
 
     private static void test1WhoQuestion(final Dataset dataset) {
         int correct = 0, total = 0;
-        int articles = 0;
         for (final Article article : dataset.getData()) {
-            if (articles++ == 5)
-                break;
             for (final Paragraph paragraph : article.getParagraphs()) {
                 for (final QuestionAnswerService qas : paragraph.getQas()) {
                     if (qas.getQuestion().startsWith("Who")) {
