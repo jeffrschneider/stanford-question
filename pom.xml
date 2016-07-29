@@ -41,5 +41,12 @@
             <artifactId>protobuf-java</artifactId>
             <version>2.6.1</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.google.apis/google-api-services-kgsearch -->
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-kgsearch</artifactId>
+            <version>v1-rev5-1.22.0</version>
+        </dependency>
     </dependencies>
 </project>

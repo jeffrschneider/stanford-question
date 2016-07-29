@@ -37,10 +37,10 @@ public final class Paragraph {
         Collections.sort(orderedContextSentences, new Comparator<Sentence>() {
             @Override
             public int compare(Sentence o1, Sentence o2) {
-                double o1Frequency = WordUtil.getLemmaFrequency(o1, sentence);
-//                double o1Frequency = WordUtil.getLemmaFrequency(o1, sentence) * WordUtil.getTripleMatchMultiplier(o1, sentence);
-                double o2Frequency = WordUtil.getLemmaFrequency(o2, sentence);
-//                double o2Frequency = WordUtil.getLemmaFrequency(o2, sentence) * WordUtil.getTripleMatchMultiplier(o2, sentence);
+//                double o1Frequency = WordUtil.getLemmaFrequency(o1, sentence);
+                double o1Frequency = WordUtil.getLemmaFrequency(o1, sentence) * WordUtil.getTripleMatchMultiplier(o1, sentence);
+//                double o2Frequency = WordUtil.getLemmaFrequency(o2, sentence);
+                double o2Frequency = WordUtil.getLemmaFrequency(o2, sentence) * WordUtil.getTripleMatchMultiplier(o2, sentence);
                 if (o1Frequency > o2Frequency)
                     return -1;
                 else if (o1Frequency < o2Frequency)

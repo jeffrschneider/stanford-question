@@ -66,7 +66,10 @@ public class DatasetTest {
 
     private static void test1WhoQuestion(final Dataset dataset) {
         int correct = 0, total = 0;
+        int articles = 0;
         for (final Article article : dataset.getData()) {
+            if (articles++ == 5)
+                break;
             for (final Paragraph paragraph : article.getParagraphs()) {
                 for (final QuestionAnswerService qas : paragraph.getQas()) {
                     if (qas.getQuestion().startsWith("Who")) {
@@ -77,8 +80,10 @@ public class DatasetTest {
                                 final String tag = sentence.nerTag(i);
                                 if (tag.equals("PERSON") || tag.equals("ORGANIZATION")) {
                                     answer += " " + sentence.word(i);
-                                } else if (answer.length() > 0) {
+                                } else if (answer.length() > 0 && !qas.getQuestion().contains(answer)) {
                                     break;
+                                } else if (answer.length() > 0 && qas.getQuestion().contains(answer)) {
+                                    answer = "";
                                 }
                             }
                             answer = answer.trim();
