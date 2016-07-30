@@ -9,7 +9,7 @@ public final class Answer {
     private int answerStart;
     private String text;
 
-    private Sentence textSentence;
+    private transient Sentence textSentence;
 
     public int getAnswerStart() {
         return answerStart;

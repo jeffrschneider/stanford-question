@@ -12,8 +12,8 @@ public class SearchExample {
             HttpTransport httpTransport = new NetHttpTransport();
             HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
             GenericUrl url = new GenericUrl("https://kgsearch.googleapis.com/v1/entities:search");
-            url.put("query", "broadcast");
-            url.put("limit", "10");
+            url.put("query", "Gary Kubiak");
+            url.put("limit", "1");
             url.put("indent", "true");
             url.put("key", "AIzaSyB1UgiRQKAELYBpjaetM4d0k3i7ZvKgNjE");
             HttpRequest request = requestFactory.buildGetRequest(url);

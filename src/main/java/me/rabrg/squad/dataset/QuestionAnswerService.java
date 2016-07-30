@@ -10,7 +10,7 @@ public final class QuestionAnswerService {
     private String id;
     private String question;
 
-    private Sentence questionSentence;
+    private transient Sentence questionSentence;
 
     public List<Answer> getAnswers() {
         return answers;

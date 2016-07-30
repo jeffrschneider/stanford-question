@@ -54,8 +54,8 @@ public class WordUtil {
     public static int relationObject = 0;
 
     public static double getTripleMatchMultiplier(final Sentence target, final Sentence source) {
-        final TripleUtil.Triple targetTriple = TripleUtil.getTriple(target.text());
-        final TripleUtil.Triple sourceTriple = TripleUtil.getTriple(source.text());
+        final TypeDependencyUtil.TypeDependencyData targetTriple = TypeDependencyUtil.getTriple(target.text());
+        final TypeDependencyUtil.TypeDependencyData sourceTriple = TypeDependencyUtil.getTriple(source.text());
         double multiplier = 1.0;
         if (targetTriple.getSubject() != null && sourceTriple.getSubject() != null && targetTriple.getSubject().equals(sourceTriple.getSubject()))
             multiplier += 0.66;
