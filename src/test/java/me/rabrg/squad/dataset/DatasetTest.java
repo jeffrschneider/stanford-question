@@ -9,19 +9,21 @@ import edu.stanford.nlp.trees.TypedDependency;
 import me.rabrg.util.MapUtil;
 import me.rabrg.util.TypeDependencyUtil;
 
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class DatasetTest {
 
-    public static void main(final String[] args) throws IOException {
+    public static void main(final String[] args) throws Exception {
+        System.setErr(new PrintStream(new OutputStream() {
+            public void write(int b) {
+            }
+        }));
         final Dataset dataset = Dataset.loadDataset("dev-v1.0.json");
-        cacheTriples(dataset);
+        test1WhoQuestion(dataset);
+//        cacheTriples(dataset);
     }
 
     private static void printOrderedFirstWord(final Dataset dataset) {
@@ -81,7 +83,7 @@ public class DatasetTest {
                     if (qas.getQuestion().startsWith("Who")) {
                         boolean answeredCorectly = false;
                         String answer = "";
-                        String correctSentence = "INCORRECT_SENTENCE";
+                        String correctSentence = "INCORRECT";
                         for (final Sentence sentence : paragraph.getOrderedRelevancyContextSentences(qas.getQuestionSentence())) {
                             for (int i = 0; i < sentence.words().size(); i++) {
                                 final String tag = sentence.nerTag(i);
@@ -101,12 +103,12 @@ public class DatasetTest {
                                         answeredCorectly = true;
                                     }
                                     if (sentence.text().contains(qas.getAnswers().get(0).getText()))
-                                        correctSentence = "CORRECT_SENTENCE";
+                                        correctSentence = "CORRECT";
                                     break;
                                 }
                             }
                         }
-                        System.out.println(qas.getQuestion() + "\t" + qas.getAnswers().get(0).getText() + "\t" + answer + "\t" + answeredCorectly + "\t" + (answeredCorectly ? "CORRECT" : "INCORRECT") + '\t' + correctSentence);
+                        System.out.println(qas.getQuestion() + "\t" + qas.getAnswers().get(0).getText() + "\t" + answer + "\t" + (answeredCorectly ? "CORRECT" : "INCORRECT") + '\t' + correctSentence);
                         total++;
                     }
                 }
@@ -142,8 +144,8 @@ public class DatasetTest {
                     if (qas.getQuestion().startsWith("Who")) {
                         for (final Sentence sentence : paragraph.getContextSentences()) {
                             if (sentence.text().contains(qas.getAnswers().get(0).getText())) {
-                                final TypeDependencyUtil.TypeDependencyData questionTriple = TypeDependencyUtil.getTriple(qas.getQuestion());
-                                final TypeDependencyUtil.TypeDependencyData contextTriple = TypeDependencyUtil.getTriple(sentence.text());
+                                final TypeDependencyUtil.TypeDependencyData questionTriple = TypeDependencyUtil.getData(qas.getQuestion());
+                                final TypeDependencyUtil.TypeDependencyData contextTriple = TypeDependencyUtil.getData(sentence.text());
                                 int matches = 0;
                                 if (questionTriple.getSubject() != null && contextTriple.getSubject() != null && questionTriple.getSubject().equals(contextTriple.getSubject()))
                                     matches++;
@@ -198,7 +200,7 @@ public class DatasetTest {
             for (final Paragraph paragraph : article.getParagraphs()) {
                 for (final Sentence sentence : paragraph.getContextSentences()) {
                     try {
-                        final TypeDependencyUtil.TypeDependencyData triple = TypeDependencyUtil.getTriple(sentence.text());
+                        final TypeDependencyUtil.TypeDependencyData triple = TypeDependencyUtil.getData(sentence.text());
                         if (triple.getSubject() == null || triple.getRelation() == null)
                             continue;
                         final Sentence subjectSentence = new Sentence(triple.getSubject());

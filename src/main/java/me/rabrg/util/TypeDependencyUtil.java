@@ -6,6 +6,8 @@ import edu.stanford.nlp.trees.GrammaticalStructureFactory;
 import edu.stanford.nlp.trees.PennTreebankLanguagePack;
 import edu.stanford.nlp.trees.TypedDependency;
 
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,10 +18,30 @@ public class TypeDependencyUtil {
     private static final PennTreebankLanguagePack languagePack = new PennTreebankLanguagePack();
     private static final GrammaticalStructureFactory structureFactory = languagePack.grammaticalStructureFactory();
 
-    public static TypeDependencyData getTriple(final String text) {
-        final List<TypedDependency> dependencies = structureFactory.newGrammaticalStructure(parser.parse(text))
-                .typedDependenciesCCprocessed();
-        return new TypeDependencyData(getSubject(dependencies), getRelation(dependencies), getObject(dependencies));
+    private static final Map<String, List<TypedDependency>> map = new HashMap<>();
+
+    public static List<TypedDependency> getTypeDependencies(final String text) {
+        if (map.isEmpty()) {
+            System.err.println("Loading type dependencies....");
+            try {
+                final ObjectInputStream writer = new ObjectInputStream(new FileInputStream("typed-dependencies.bin"));
+                map.putAll((Map<String, List<TypedDependency>>) writer.readObject());
+            } catch (final Exception e) {
+                System.out.println("Failed to load typed dependencies");
+            }
+            System.err.println("Loaded type dependencies");
+        }
+        return map.get(text);
+//
+    }
+
+    public static TypeDependencyData getData(final String text) {
+        final List<TypedDependency> list = getTypeDependencies(text);
+        if (list == null) {
+            System.err.println("Missing dependencies for: " + text);
+            return new TypeDependencyData(null, null, null);
+        }
+        return new TypeDependencyData(getSubject(list), getRelation(list), getObject(list));
     }
 
     private static String getSubject(final List<TypedDependency> dependencies) {
