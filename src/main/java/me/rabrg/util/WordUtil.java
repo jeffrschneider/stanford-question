@@ -50,9 +50,6 @@ public class WordUtil {
         return frequency;
     }
 
-    public static int relationMatches = 0;
-    public static int relationObject = 0;
-
     public static double getTripleMatchMultiplier(final Sentence target, final Sentence source) {
         final TypeDependencyUtil.TypeDependencyData targetTriple = TypeDependencyUtil.getData(target.text());
         final TypeDependencyUtil.TypeDependencyData sourceTriple = TypeDependencyUtil.getData(source.text());
@@ -69,11 +66,9 @@ public class WordUtil {
             multiplier += 0.66;
         if (targetTriple.getRelation() != null && sourceTriple.getRelation() != null && targetTriple.getRelation().equals(sourceTriple.getRelation())) {
             multiplier += 0.66;
-            relationMatches++;
         }
         if (targetTriple.getObject() != null && sourceTriple.getObject() != null && targetTriple.getObject().equals(sourceTriple.getObject())) {
             multiplier += 0.66;
-            relationObject++;
         }
         return multiplier;
     }

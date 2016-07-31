@@ -1,8 +1,8 @@
 package me.rabrg.squad.dataset;
 
-import edu.cmu.lti.ws4j.WS4J;
 import edu.stanford.nlp.simple.Document;
 import edu.stanford.nlp.simple.Sentence;
+import me.rabrg.util.TypeDependencyUtil;
 import me.rabrg.util.WordUtil;
 
 import java.util.ArrayList;
@@ -41,17 +41,46 @@ public final class Paragraph {
 
     public List<Sentence> getOrderedRelevancyContextSentences(final Sentence sentence) {
         final List<Sentence> orderedContextSentences = new ArrayList<>(getContextSentences());
+        final TypeDependencyUtil.TypeDependencyData questionData = TypeDependencyUtil.getData(sentence.text());
 
+        Sentence first = null;
+        // 1. if Q-Verb = S-verb, and Q-Dobj = S-Dobj; pick that sentence
+        for (final Sentence contextSentence : getContextSentences()) {
+            final TypeDependencyUtil.TypeDependencyData contextData = TypeDependencyUtil.getData(contextSentence.text());
+            if (questionData.getRelation() != null && questionData.getObject() != null && questionData.getRelation().equalsIgnoreCase(contextData.getRelation()) && questionData.getObject().equalsIgnoreCase(contextData.getObject())) {
+                first = contextSentence;
+                break;
+            }
+        }
+
+        // 2. if Q-Verb= S-verb, and Q-Dobj = S-Subj; pick that sentence
+        if (first != null) {
+            for (final Sentence contextSentence : getContextSentences()) {
+                final TypeDependencyUtil.TypeDependencyData contextData = TypeDependencyUtil.getData(contextSentence.text());
+                if (questionData.getRelation() != null && questionData.getObject() != null && questionData.getRelation().equalsIgnoreCase(contextData.getRelation()) && questionData.getObject().equalsIgnoreCase(contextData.getSubject())) {
+                    first = contextSentence;
+                    break;
+                }
+            }
+        }
+
+        // 3. if Q-Verb = S-Verb; pick that sentence
+        if (first != null) {
+            for (final Sentence contextSentence : getContextSentences()) {
+                final TypeDependencyUtil.TypeDependencyData contextData = TypeDependencyUtil.getData(contextSentence.text());
+                if (questionData.getRelation() != null && questionData.getRelation().equalsIgnoreCase(contextData.getRelation())) {
+                    first = contextSentence;
+                    break;
+                }
+            }
+        }
+        // TODO: 4 through 7
 
         // Hard detection failed, revert to term frequency
         Collections.sort(orderedContextSentences, new Comparator<Sentence>() {
             @Override
             public int compare(Sentence o1, Sentence o2) {
-//                double o1Frequency = getSimilarity(o1, sentence);
-//                double o1Frequency = WordUtil.getLemmaFrequency(o1, sentence);
                 double o1Frequency = WordUtil.getLemmaFrequency(o1, sentence) * WordUtil.getTripleMatchMultiplier(o1, sentence);
-//                double o2Frequency = getSimilarity(o2, sentence);
-//                double o2Frequency = WordUtil.getLemmaFrequency(o2, sentence);
                 double o2Frequency = WordUtil.getLemmaFrequency(o2, sentence) * WordUtil.getTripleMatchMultiplier(o2, sentence);
                 if (o1Frequency > o2Frequency)
                     return -1;
@@ -60,15 +89,11 @@ public final class Paragraph {
                 return 0;
             }
         });
+        if (first != null) {
+            orderedContextSentences.remove(first);
+            orderedContextSentences.add(0, first);
+        }
         return orderedContextSentences;
-    }
-
-    private static double getSimilarity(final Sentence s, final Sentence s2) {
-        double average = 0;
-        for (final String word : s.words())
-            for (final String word2 : s2.words())
-                average += WS4J.runLIN(word, word2);
-        return average / (s.words().size() * s2.words().size());
     }
 
     @Override

@@ -17,7 +17,6 @@ import java.util.Map;
 public class DatasetTest {
 
     public static void main(final String[] args) throws Exception {
-        // Disable info log
         System.setErr(new PrintStream(new OutputStream() {
             public void write(int b) {
             }
