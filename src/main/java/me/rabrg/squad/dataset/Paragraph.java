@@ -41,6 +41,9 @@ public final class Paragraph {
 
     public List<Sentence> getOrderedRelevancyContextSentences(final Sentence sentence) {
         final List<Sentence> orderedContextSentences = new ArrayList<>(getContextSentences());
+
+
+        // Hard detection failed, revert to term frequency
         Collections.sort(orderedContextSentences, new Comparator<Sentence>() {
             @Override
             public int compare(Sentence o1, Sentence o2) {

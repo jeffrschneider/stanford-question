@@ -17,6 +17,7 @@ import java.util.Map;
 public class DatasetTest {
 
     public static void main(final String[] args) throws Exception {
+        // Disable info log
         System.setErr(new PrintStream(new OutputStream() {
             public void write(int b) {
             }
@@ -241,6 +242,17 @@ public class DatasetTest {
             final ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream("typed-dependencies.bin"));
             writer.writeObject(map);
             writer.close();
+        }
+    }
+
+    private static void printQuestionVerbs(final Dataset dataset) {
+        for (final Article article : dataset.getData()) {
+            for (final Paragraph paragraph : article.getParagraphs()) {
+                for (final QuestionAnswerService qas : paragraph.getQas()) {
+                    final TypeDependencyUtil.TypeDependencyData data = TypeDependencyUtil.getData(qas.getQuestion());
+                    System.out.println(qas.getQuestion() + "\t" + data.getRelation());
+                }
+            }
         }
     }
 }

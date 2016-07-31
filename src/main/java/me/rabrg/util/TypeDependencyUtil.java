@@ -67,7 +67,7 @@ public class TypeDependencyUtil {
         for (final TypedDependency dependency : dependencies)
             if (dependency.reln().toString().contains("root"))
                 relation = dependency.dep().word();
-            else if (dependency.reln().toString().contains("ccp") && dependency.gov().equals(relation))
+            else if (dependency.reln().toString().contains("cop") && dependency.gov().word().equals(relation))
                 relation = dependency.dep().word();
         return relation == null ? null : new Sentence(relation).lemmas().get(0);
     }
