@@ -19,6 +19,7 @@ import java.util.Map;
 public class DatasetTest {
 
     public static void main(final String[] args) throws Exception {
+//        System.out.println(TypeDependencyUtil.getData("Another factor in the early 1990s that worked to radicalize the Islamist movement was the Gulf War, which brought several hundred thousand US and allied non-Muslim military personnel to Saudi Arabian soil to put an end to Saddam Hussein's occupation of Kuwait."));
         System.setErr(new PrintStream(new OutputStream() {
             public void write(int b) {
             }
@@ -80,29 +81,30 @@ public class DatasetTest {
     private static int method1Correct = 0;
     private static int method2Correct = 0;
     private static int method3Correct = 0;
+
     private static void test1WhoQuestion(final Dataset dataset) {
         int correct = 0, total = 0;
         for (final Article article : dataset.getData()) {
             for (final Paragraph paragraph : article.getParagraphs()) {
                 for (final QuestionAnswerService qas : paragraph.getQas()) {
                     if (qas.getQuestion().startsWith("Who")) {
-                        boolean answeredCorectly = false;
-                        String answer = "";
-                        String correctSentence = "INCORRECT";
-                        for (final Sentence sentence : paragraph.getOrderedRelevancyContextSentences(qas.getQuestionSentence())) {
-                            for (int i = 0; i < sentence.words().size(); i++) {
-                                final String tag = sentence.nerTag(i);
+                        String detectedAnswer = "";
+                        for (final Sentence detectedSentence : paragraph.getOrderedRelevancyContextSentences(qas.getQuestionSentence())) {
+                            for (int i = 0; i < detectedSentence.words().size(); i++) {
+                                final String tag = detectedSentence.nerTag(i);
                                 if (tag.equals("PERSON") || tag.equals("ORGANIZATION")) {
-                                    answer += " " + sentence.word(i);
-                                } else if (answer.length() > 0 && !qas.getQuestion().contains(answer)) {
+                                    detectedAnswer += " " + detectedSentence.word(i);
+                                } else if (detectedAnswer.length() > 0 && !qas.getQuestion().contains(detectedAnswer)) {
                                     break;
-                                } else if (answer.length() > 0 && qas.getQuestion().contains(answer)) {
-                                    answer = "";  // TODO: compound tag will continue
+                                } else if (detectedAnswer.length() > 0 && qas.getQuestion().contains(detectedAnswer)) {
+                                    detectedAnswer = "";  // TODO: compound tag will continue
                                 }
                             }
-                            answer = answer.trim();
-                            if (answer.length() > 0) {
-                                if (qas.isAnswer(answer)) {
+                            detectedAnswer = detectedAnswer.trim();
+                            if (detectedAnswer.length() > 0) {
+                                boolean correctSentence = detectedSentence.text().contains(qas.getAnswers().get(0).getText());
+                                boolean correctAnswer = qas.isAnswer(detectedAnswer);
+                                if (correctAnswer) {
                                     if (Paragraph.method == 1)
                                         method1Correct++;
                                     else if (Paragraph.method == 2)
@@ -110,20 +112,16 @@ public class DatasetTest {
                                     else if (Paragraph.method == 3)
                                         method3Correct++;
                                     correct++;
-                                    answeredCorectly = true;
-                                }
-                                if (sentence.text().contains(qas.getAnswers().get(0).getText()))
-                                    correctSentence = "CORRECT";
-                                else if (Paragraph.method == 1) {
-                                    for (final Sentence s : paragraph.getContextSentences()) {
-                                        if (s.text().contains(qas.getAnswers().get(0).getText()))
-                                            System.out.println(qas.getQuestion() + "\t" + sentence.text() + "\t" + s.text() + "\t" + answer + "\t" + qas.getAnswers().get(0).getText());
+                                } else if (!correctSentence && Paragraph.method == 1) {
+                                    for (final Sentence actualSentence : paragraph.getContextSentences()) {
+                                        if (actualSentence.text().contains(qas.getAnswers().get(0).getText()))
+                                            System.out.println(qas.getQuestion() + "\t" + detectedSentence.text() + "\t" + actualSentence.text() + "\t" + detectedAnswer + "\t" + qas.getAnswers().get(0).getText() + "\t" + Paragraph.questionData + "\t" + Paragraph.contextData + "\t" + TypeDependencyUtil.getData(actualSentence.text()));
                                     }
                                 }
                                 break;
                             }
                         }
-//                        System.out.println(qas.getQuestion() + "\t" + qas.getAnswers().get(0).getText() + "\t" + answer + "\t" + (answeredCorectly ? "CORRECT" : "INCORRECT") + '\t' + correctSentence);
+//                        System.out.println(qas.getQuestion() + "\t" + qas.getAnswers().get(0).getText() + "\t" + answer + "\t" + (answeredCorectly ? "CORRECT" : "INCORRECT") + '\t' + (correctSentence ? "CORRECT" : "INCORRECT"));
                         total++;
                     }
                 }
@@ -131,7 +129,6 @@ public class DatasetTest {
         }
         System.out.println(correct + "/" + total);
         System.out.println(Paragraph.method1 + "," + Paragraph.method2 + "," + Paragraph.method3);
-        System.out.println(Paragraph.alreadyDetected1 + "," + Paragraph.alreadyDetected2 + "," + Paragraph.alreadyDetected3);
         System.out.println(method1Correct + "," + method2Correct + "," + method3Correct);
     }
 
