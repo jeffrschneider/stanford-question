@@ -51,6 +51,7 @@ public final class Paragraph {
     public List<Sentence> getOrderedRelevancyContextSentences(final Sentence sentence) {
         final List<Sentence> orderedContextSentences = new ArrayList<>(getContextSentences());
 
+        // Term frequency
         Collections.sort(orderedContextSentences, new Comparator<Sentence>() {
             @Override
             public int compare(Sentence o1, Sentence o2) {
@@ -64,6 +65,7 @@ public final class Paragraph {
             }
         });
 
+        // Verb rules
         final Sentence first = getFirstRelevancy(sentence);
         if (first != null) {
             if (orderedContextSentences.indexOf(first) == 0) {
