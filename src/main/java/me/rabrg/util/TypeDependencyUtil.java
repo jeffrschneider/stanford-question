@@ -20,6 +20,7 @@ public class TypeDependencyUtil {
 
     private static final Map<String, List<TypedDependency>> map = new HashMap<>();
 
+    // TODO: protobuf
     public static List<TypedDependency> getTypeDependencies(final String text) {
         if (map.isEmpty()) {
             System.err.println("Loading type dependencies....");
@@ -67,8 +68,8 @@ public class TypeDependencyUtil {
         for (final TypedDependency dependency : dependencies)
             if (dependency.reln().toString().contains("root"))
                 relation = dependency.dep().word();
-            else if (dependency.reln().toString().contains("cop") && dependency.gov().word().equals(relation))
-                relation = dependency.dep().word();
+//            else if (dependency.reln().toString().contains("cop") && dependency.gov().word().equals(relation))
+//                relation = dependency.dep().word();
         return relation == null ? null : new Sentence(relation).lemmas().get(0);
     }
 

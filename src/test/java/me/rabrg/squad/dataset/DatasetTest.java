@@ -1,7 +1,9 @@
 package me.rabrg.squad.dataset;
 
 import com.google.gson.Gson;
+import edu.stanford.nlp.hcoref.data.CorefChain;
 import edu.stanford.nlp.parser.lexparser.LexicalizedParser;
+import edu.stanford.nlp.simple.Document;
 import edu.stanford.nlp.simple.Sentence;
 import edu.stanford.nlp.trees.GrammaticalStructureFactory;
 import edu.stanford.nlp.trees.PennTreebankLanguagePack;
@@ -75,6 +77,9 @@ public class DatasetTest {
         }
     }
 
+    private static int method1Correct = 0;
+    private static int method2Correct = 0;
+    private static int method3Correct = 0;
     private static void test1WhoQuestion(final Dataset dataset) {
         int correct = 0, total = 0;
         for (final Article article : dataset.getData()) {
@@ -97,24 +102,37 @@ public class DatasetTest {
                             }
                             answer = answer.trim();
                             if (answer.length() > 0) {
-                                if (answer.length() > 0) {
-                                    if (qas.isAnswer(answer)) {
-                                        correct++;
-                                        answeredCorectly = true;
-                                    }
-                                    if (sentence.text().contains(qas.getAnswers().get(0).getText()))
-                                        correctSentence = "CORRECT";
-                                    break;
+                                if (qas.isAnswer(answer)) {
+                                    if (Paragraph.method == 1)
+                                        method1Correct++;
+                                    else if (Paragraph.method == 2)
+                                        method2Correct++;
+                                    else if (Paragraph.method == 3)
+                                        method3Correct++;
+                                    correct++;
+                                    answeredCorectly = true;
                                 }
+                                if (sentence.text().contains(qas.getAnswers().get(0).getText()))
+                                    correctSentence = "CORRECT";
+                                else if (Paragraph.method == 1) {
+                                    for (final Sentence s : paragraph.getContextSentences()) {
+                                        if (s.text().contains(qas.getAnswers().get(0).getText()))
+                                            System.out.println(qas.getQuestion() + "\t" + sentence.text() + "\t" + s.text() + "\t" + answer + "\t" + qas.getAnswers().get(0).getText());
+                                    }
+                                }
+                                break;
                             }
                         }
-                        System.out.println(qas.getQuestion() + "\t" + qas.getAnswers().get(0).getText() + "\t" + answer + "\t" + (answeredCorectly ? "CORRECT" : "INCORRECT") + '\t' + correctSentence);
+//                        System.out.println(qas.getQuestion() + "\t" + qas.getAnswers().get(0).getText() + "\t" + answer + "\t" + (answeredCorectly ? "CORRECT" : "INCORRECT") + '\t' + correctSentence);
                         total++;
                     }
                 }
             }
         }
         System.out.println(correct + "/" + total);
+        System.out.println(Paragraph.method1 + "," + Paragraph.method2 + "," + Paragraph.method3);
+        System.out.println(Paragraph.alreadyDetected1 + "," + Paragraph.alreadyDetected2 + "," + Paragraph.alreadyDetected3);
+        System.out.println(method1Correct + "," + method2Correct + "," + method3Correct);
     }
 
     private static void printQuestionTrees(final Dataset dataset) {
@@ -250,6 +268,21 @@ public class DatasetTest {
                 for (final QuestionAnswerService qas : paragraph.getQas()) {
                     final TypeDependencyUtil.TypeDependencyData data = TypeDependencyUtil.getData(qas.getQuestion());
                     System.out.println(qas.getQuestion() + "\t" + data.getRelation());
+                }
+            }
+        }
+    }
+
+    private static void printCoref(final Dataset dataset) {
+        for (final Article article : dataset.getData()) {
+            for (final Paragraph paragraph : article.getParagraphs()) {
+                final Document document = new Document(paragraph.getContext());
+                final Map<Integer, CorefChain> map = document.coref();
+                if (map != null) {
+                    for (final Map.Entry<Integer, CorefChain> entry : map.entrySet()) {
+                        System.out.println(entry);
+                    }
+                    break;
                 }
             }
         }
