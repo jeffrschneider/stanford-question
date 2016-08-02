@@ -1,9 +1,13 @@
 package me.rabrg.util;
 
+import edu.cmu.lti.jawjaw.pobj.POS;
+import edu.cmu.lti.ws4j.WS4J;
 import edu.stanford.nlp.simple.Sentence;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 public class WordUtil {
 
@@ -71,5 +75,25 @@ public class WordUtil {
             multiplier += 0.66;
         }
         return multiplier;
+    }
+
+    public static List<String> getVerbs(final Sentence sentence) {
+        final List<String> verbs = new ArrayList<>();
+        for (int i = 0; i < sentence.words().size(); i++)
+            if (sentence.posTag(i).startsWith("V"))
+                verbs.add(new Sentence(sentence.word(i)).lemmas().get(0));
+        return verbs;
+    }
+
+    public static Set<String> getVerbSynonyms(final TypeDependencyUtil.TypeDependencyData data) {
+        if (data.getRelation() == null)
+            return null;
+        return WS4J.findSynonyms(data.getRelation(), POS.v); // TODO: lemmas?
+    }
+
+    public static Set<String> getVerbAntonyms(final TypeDependencyUtil.TypeDependencyData data) {
+        if (data.getRelation() == null)
+            return null;
+        return WS4J.findAntonyms(data.getRelation(), POS.v); // TODO: lemmas?
     }
 }

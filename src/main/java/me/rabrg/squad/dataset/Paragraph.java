@@ -1,13 +1,14 @@
 package me.rabrg.squad.dataset;
 
-import edu.cmu.lti.jawjaw.pobj.POS;
-import edu.cmu.lti.ws4j.WS4J;
 import edu.stanford.nlp.simple.Document;
 import edu.stanford.nlp.simple.Sentence;
 import me.rabrg.util.TypeDependencyUtil;
 import me.rabrg.util.WordUtil;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public final class Paragraph {
 
@@ -182,26 +183,6 @@ public final class Paragraph {
 ////        }
 //        return first;
 //    }
-
-    private static List<String> getVerbs(final Sentence sentence) {
-        final List<String> verbs = new ArrayList<>();
-        for (int i = 0; i < sentence.words().size(); i++)
-            if (sentence.posTag(i).startsWith("V"))
-                verbs.add(new Sentence(sentence.word(i)).lemmas().get(0));
-        return verbs;
-    }
-
-    private static Set<String> getVerbSynonyms(final TypeDependencyUtil.TypeDependencyData data) {
-        if (data.getRelation() == null)
-            return null;
-        return WS4J.findSynonyms(data.getRelation(), POS.v);
-    }
-
-    private static Set<String> getVerbAntonyms(final TypeDependencyUtil.TypeDependencyData data) {
-        if (data.getRelation() == null)
-            return null;
-        return WS4J.findAntonyms(data.getRelation(), POS.v);
-    }
 
     @Override
     public String toString() {

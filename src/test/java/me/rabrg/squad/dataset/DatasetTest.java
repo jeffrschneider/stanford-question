@@ -10,11 +10,10 @@ import edu.stanford.nlp.trees.PennTreebankLanguagePack;
 import edu.stanford.nlp.trees.TypedDependency;
 import me.rabrg.util.MapUtil;
 import me.rabrg.util.TypeDependencyUtil;
+import me.rabrg.util.WordUtil;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DatasetTest {
 
@@ -25,7 +24,7 @@ public class DatasetTest {
             }
         }));
         final Dataset dataset = Dataset.loadDataset("dev-v1.0.json");
-        test1WhoQuestion(dataset);
+        printRuleReport(dataset);
 //        cacheTriples(dataset);
     }
 
@@ -268,6 +267,77 @@ public class DatasetTest {
                     break;
                 }
             }
+        }
+    }
+
+    private static void printRuleReport(final Dataset dataset) throws IOException {
+        final List<String> report = new ArrayList<>();
+        for (final Article article : dataset.getData()) {
+            for (final Paragraph paragraph : article.getParagraphs()) {
+                for (final QuestionAnswerService qas : paragraph.getQas()) {
+                    final TypeDependencyUtil.TypeDependencyData questionData = TypeDependencyUtil.getData(qas.getQuestion());
+                    final Set<String> questionRelationSynonyms = WordUtil.getVerbSynonyms(questionData);
+                    final Set<String> questionRelationAntonyms = WordUtil.getVerbAntonyms(questionData);
+                    for (final Sentence contextSentence : paragraph.getContextSentences()) {
+                        final TypeDependencyUtil.TypeDependencyData contextData = TypeDependencyUtil.getData(contextSentence.text());
+                        final Set<String> contextRelationSynonyms = WordUtil.getVerbSynonyms(contextData);
+                        final Set<String> contextRelationAntonyms = WordUtil.getVerbAntonyms(contextData);
+
+                        // Question
+                        final String question = qas.getQuestion();
+
+                        // Context sentence
+                        final String context = contextSentence.text();
+
+                        // Term frequency
+                        final int rule0 = WordUtil.getLemmaFrequency(contextSentence, qas.getQuestionSentence());
+
+                        // Relation object match
+                        final int rule1 = questionData.getRelation() != null && questionData.getObject() != null
+                                && questionData.getRelation().equalsIgnoreCase(contextData.getRelation())
+                                && questionData.getObject().equalsIgnoreCase(contextData.getObject()) ? 3 : 0;
+
+                        // Relation object-subject match
+                        final int rule2 = questionData.getRelation() != null && questionData.getObject() != null
+                                && questionData.getRelation().equalsIgnoreCase(contextData.getRelation())
+                                && questionData.getObject().equalsIgnoreCase(contextData.getSubject()) ? 3 : 0;
+
+                        // Any verb match
+                        final int rule3 = !Collections.disjoint(WordUtil.getVerbs(contextSentence),
+                                WordUtil.getVerbs(qas.getQuestionSentence())) ? 2 : 0;
+
+                        // Relation synonym match
+                        final int rule4 = questionRelationSynonyms != null && questionRelationSynonyms.contains(contextData.getRelation())
+                                || contextRelationSynonyms != null && contextRelationSynonyms.contains(questionData.getRelation()) ? 2 : 0;
+
+                        // Relation antonym match
+                        final int rule5 = questionRelationAntonyms != null && questionRelationAntonyms.contains(contextData.getRelation())
+                                || contextRelationAntonyms != null && contextRelationAntonyms.contains(questionData.getRelation()) ? 2 : 0;
+
+                        // Total score
+                        final int total = rule0 + rule1 + rule2 + rule3 + rule4 + rule5;
+
+                        // Sentence contains answer
+                        final boolean containsAnswer = context.contains(qas.getAnswers().get(0).getText());
+
+                        // Add to report
+                        report.add(question + "\t" + context + "\t" + rule0 + "\t" + rule1 + "\t" + rule2 + "\t" + rule3 + "\t" + rule4 + "\t" + rule5 + "\t" + total + "\t" + (containsAnswer ? "X" : "") + "\n");
+                    }
+                    report.add("\n\n");
+                }
+            }
+        }
+
+        // Limit report size to 20k for Google sheets
+        final int reportSize = report.size();
+        final int maxSize = 20000;
+        if (reportSize > maxSize)
+            report.subList(maxSize, reportSize).clear();
+
+        // Write report to file
+        try (final BufferedWriter writer = new BufferedWriter(new FileWriter("rule-report.tsv"))) {
+            for (final String reportLine : report)
+                writer.write(reportLine);
         }
     }
 }
