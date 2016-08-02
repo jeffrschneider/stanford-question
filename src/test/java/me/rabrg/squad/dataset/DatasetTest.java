@@ -326,10 +326,10 @@ public class DatasetTest {
                         final boolean containsAnswer = context.contains(qas.getAnswers().get(0).getText());
 
                         // Add to report
-                        report.append(question).append("\t").append(context).append("\t").append(rule0).append("\t")
-                                .append(rule1).append("\t").append(rule2).append("\t").append(rule3).append("\t")
-                                .append(rule4).append("\t").append(rule5).append("\t").append(total).append("\t")
-                                .append(containsAnswer ? "X" : "").append("\n");
+                        report.append(question).append('\t').append(context).append('\t').append(rule0).append('\t')
+                                .append(rule1).append('\t').append(rule2).append('\t').append(rule3).append('\t')
+                                .append(rule4).append('\t').append(rule5).append('\t').append(total).append('\t')
+                                .append(containsAnswer ? 'X' : "").append('\n');
                     }
                     report.append("\n\n");
                 }
