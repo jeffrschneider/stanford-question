@@ -78,10 +78,6 @@ public class DatasetTest {
         }
     }
 
-    private static int method1Correct = 0;
-    private static int method2Correct = 0;
-    private static int method3Correct = 0;
-
     private static void test1WhoQuestion(final Dataset dataset) {
         int correct = 0, total = 0;
         for (final Article article : dataset.getData()) {
@@ -105,18 +101,10 @@ public class DatasetTest {
                                 boolean correctSentence = detectedSentence.text().contains(qas.getAnswers().get(0).getText());
                                 boolean correctAnswer = qas.isAnswer(detectedAnswer);
                                 if (correctAnswer) {
-                                    if (Paragraph.method == 1)
-                                        method1Correct++;
-                                    else if (Paragraph.method == 2)
-                                        method2Correct++;
-                                    else if (Paragraph.method == 3)
-                                        method3Correct++;
                                     correct++;
-                                } else if (!correctSentence && Paragraph.method == 1) {
-                                    for (final Sentence actualSentence : paragraph.getContextSentences()) {
-                                        if (actualSentence.text().contains(qas.getAnswers().get(0).getText()))
-                                            System.out.println(qas.getQuestion() + "\t" + detectedSentence.text() + "\t" + actualSentence.text() + "\t" + detectedAnswer + "\t" + qas.getAnswers().get(0).getText() + "\t" + Paragraph.questionData + "\t" + Paragraph.contextData + "\t" + TypeDependencyUtil.getData(actualSentence.text()));
-                                    }
+                                }
+                                if (!correctSentence && Paragraph.priority.contains(detectedSentence)) {
+                                    System.out.println(qas.getQuestion() + "\t" + qas.getAnswers().get(0).getText() + "\t" + TypeDependencyUtil.getData(qas.getQuestion()) + "\t" + detectedSentence.text() + "\t" + TypeDependencyUtil.getData(detectedSentence.text()));
                                 }
                                 break;
                             }
@@ -128,8 +116,6 @@ public class DatasetTest {
             }
         }
         System.out.println(correct + "/" + total);
-        System.out.println(Paragraph.method1 + "," + Paragraph.method2 + "," + Paragraph.method3);
-        System.out.println(method1Correct + "," + method2Correct + "," + method3Correct);
     }
 
     private static void printQuestionTrees(final Dataset dataset) {

@@ -37,10 +37,10 @@ public class TypeDependencyUtil {
     }
 
     public static TypeDependencyData getData(final String text) {
-        final List<TypedDependency> list = getTypeDependencies(text);
+        List<TypedDependency> list = getTypeDependencies(text);
         if (list == null) {
             System.err.println("Missing dependencies for: " + text);
-            return new TypeDependencyData(null, null, null);
+            list = structureFactory.newGrammaticalStructure(parser.parse(text)).typedDependenciesCCprocessed();
         }
         return new TypeDependencyData(getSubject(list), getRelation(list), getObject(list));
     }

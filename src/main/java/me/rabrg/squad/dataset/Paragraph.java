@@ -38,16 +38,7 @@ public final class Paragraph {
         return contextSentences;
     }
 
-    // Verb detection debugging stats
-    public static int method;
-    public static int method1 = 0;
-    public static int method2 = 0;
-    public static int method3 = 0;
-    public static int method4 = 0;
-    public static int method5 = 0;
-
-    public static TypeDependencyUtil.TypeDependencyData questionData;
-    public static TypeDependencyUtil.TypeDependencyData contextData;
+    public static List<Sentence> priority;
 
     public List<Sentence> getOrderedRelevancyContextSentences(final Sentence sentence) {
         final List<Sentence> orderedContextSentences = new ArrayList<>(getContextSentences());
@@ -67,101 +58,130 @@ public final class Paragraph {
         });
 
         // Verb rules
-//        final Sentence first = getFirstRelevancy(sentence);
-//        if (first != null) {
-//            orderedContextSentences.remove(first);
-//            orderedContextSentences.add(0, first);
-//        }
+        priority = getPrioritySentences(sentence);
+        if (!priority.isEmpty()) {
+            orderedContextSentences.removeAll(priority);
+            orderedContextSentences.addAll(0, priority);
+        }
         return orderedContextSentences;
     }
 
-    @Deprecated
-    private Sentence getFirstRelevancy(final Sentence sentence) {
-        questionData = null;
-        final TypeDependencyUtil.TypeDependencyData questionData = TypeDependencyUtil.getData(sentence.text());
-        final Set<String> questionSynonyms = getVerbSynonyms(questionData);
-        final Set<String> questionAntonyms = getVerbAntonyms(questionData);
-
-        Paragraph.questionData = questionData;
-        Paragraph.contextData = null;
-        method = -1;
-        Sentence first = null;
-        // 1. if Q-Verb = S-verb, and Q-Dobj = S-Dobj; pick that sentence
+    private List<Sentence> getPrioritySentences(final Sentence questionSentence) {
+        final List<Sentence> priority = new ArrayList<>();
+        final TypeDependencyUtil.TypeDependencyData questionData = TypeDependencyUtil.getData(questionSentence.text());
+        // Relation object match
         for (final Sentence contextSentence : getContextSentences()) {
             final TypeDependencyUtil.TypeDependencyData contextData = TypeDependencyUtil.getData(contextSentence.text());
-            if (contextSentence.text().startsWith("Another factor in the early 1990s")) {
-                System.out.println("DEBUG OUTER: questionData=" + questionData.toString());
-                System.out.println("DEBUG OUTER: contextData=" + contextData.toString());
-            }
-            if (questionData.getRelation() != null && questionData.getObject() != null && questionData.getRelation().equalsIgnoreCase(contextData.getRelation()) && questionData.getObject().equalsIgnoreCase(contextData.getObject())) {
-                first = contextSentence;
-                Paragraph.contextData = contextData;
-                if (contextSentence.text().toLowerCase().startsWith("Another factor in the early 1990s")) {
-                    System.out.println("DEBUG INNER: questionData=" + questionData.toString());
-                    System.out.println("DEBUG INNER: contextData=" + contextData.toString());
-                }
-                method1++;
-                method = 1;
-                return contextSentence;
+            if (!priority.contains(contextSentence) && questionData.getRelation() != null && questionData.getObject() != null
+                    && questionData.getRelation().equalsIgnoreCase(contextData.getRelation()) && questionData.getObject().equalsIgnoreCase(contextData.getObject())) {
+                priority.add(contextSentence);
             }
         }
-
-        // 2. if Q-Verb= S-verb, and Q-Dobj = S-Subj; pick that sentence
-        if (first == null) {
-            for (final Sentence contextSentence : getContextSentences()) {
-                final TypeDependencyUtil.TypeDependencyData contextData = TypeDependencyUtil.getData(contextSentence.text());
-                if (questionData.getRelation() != null && questionData.getObject() != null && questionData.getRelation().equalsIgnoreCase(contextData.getRelation()) && questionData.getObject().equalsIgnoreCase(contextData.getSubject())) {
-                    first = contextSentence;
-                    method2++;
-                    method = 2;
-                    break;
-                }
+        // Relation object-subject match
+        for (final Sentence contextSentence : getContextSentences()) {
+            final TypeDependencyUtil.TypeDependencyData contextData = TypeDependencyUtil.getData(contextSentence.text());
+            if (!priority.contains(contextSentence) && questionData.getRelation() != null && questionData.getObject() != null
+                    && questionData.getRelation().equalsIgnoreCase(contextData.getRelation()) && questionData.getObject().equalsIgnoreCase(contextData.getSubject())) {
+                priority.add(contextSentence);
             }
         }
-
-        // 3. if Q-Verb = S-Verb; pick that sentence
-        if (first == null) {
-            final List<String> questionVerbs = getVerbs(sentence);
-            for (final Sentence contextSentence : getContextSentences()) {
-                final List<String> contextVerbs = getVerbs(contextSentence);
-                if (!Collections.disjoint(questionVerbs, contextVerbs)) {
-                    first = contextSentence;
-                    method3++;
-                    method = 3;
-                    break;
-                }
+        // Relation match
+        for (final Sentence contextSentence : getContextSentences()) {
+            final TypeDependencyUtil.TypeDependencyData contextData = TypeDependencyUtil.getData(contextSentence.text());
+            if (!priority.contains(contextSentence) && questionData.getRelation() != null && questionData.getRelation().equalsIgnoreCase(contextData.getRelation())) {
+                priority.add(contextSentence);
             }
         }
+        return priority;
+    }
 
-//        // 4. If Q-Verb = synonymOf(S-Verb), pick that sentence
+//    @Deprecated
+//    private Sentence getFirstRelevancyOld(final Sentence sentence) {
+//        questionData = null;
+//        final TypeDependencyUtil.TypeDependencyData questionData = TypeDependencyUtil.getData(sentence.text());
+//        final Set<String> questionSynonyms = getVerbSynonyms(questionData);
+//        final Set<String> questionAntonyms = getVerbAntonyms(questionData);
+//
+//        Paragraph.questionData = questionData;
+//        Paragraph.contextData = null;
+//        method = -1;
+//        Sentence first = null;
+//        // 1. if Q-Verb = S-verb, and Q-Dobj = S-Dobj; pick that sentence
+//        for (final Sentence contextSentence : getContextSentences()) {
+//            final TypeDependencyUtil.TypeDependencyData contextData = TypeDependencyUtil.getData(contextSentence.text());
+//            if (contextSentence.text().startsWith("Another factor in the early 1990s")) {
+//                System.out.println("DEBUG OUTER: questionData=" + questionData.toString());
+//                System.out.println("DEBUG OUTER: contextData=" + contextData.toString());
+//            }
+//            if (questionData.getRelation() != null && questionData.getObject() != null && questionData.getRelation().equalsIgnoreCase(contextData.getRelation()) && questionData.getObject().equalsIgnoreCase(contextData.getObject())) {
+//                first = contextSentence;
+//                Paragraph.contextData = contextData;
+//                if (contextSentence.text().toLowerCase().startsWith("Another factor in the early 1990s")) {
+//                    System.out.println("DEBUG INNER: questionData=" + questionData.toString());
+//                    System.out.println("DEBUG INNER: contextData=" + contextData.toString());
+//                }
+//                method1++;
+//                method = 1;
+//                return contextSentence;
+//            }
+//        }
+//
+//        // 2. if Q-Verb= S-verb, and Q-Dobj = S-Subj; pick that sentence
 //        if (first == null) {
 //            for (final Sentence contextSentence : getContextSentences()) {
 //                final TypeDependencyUtil.TypeDependencyData contextData = TypeDependencyUtil.getData(contextSentence.text());
-//                final Set<String> contextSynonyms = getVerbSynonyms(contextData);
-//                if (questionSynonyms != null && contextSynonyms != null && !Collections.disjoint(questionSynonyms, contextSynonyms)) {
+//                if (questionData.getRelation() != null && questionData.getObject() != null && questionData.getRelation().equalsIgnoreCase(contextData.getRelation()) && questionData.getObject().equalsIgnoreCase(contextData.getSubject())) {
 //                    first = contextSentence;
-//                    method4++;
-//                    method = 4;
+//                    method2++;
+//                    method = 2;
 //                    break;
 //                }
 //            }
 //        }
 //
-//        // 5. If Q-Verb = antonymOf(S-Verb), pick that sentence
+//        // 3. if Q-Verb = S-Verb; pick that sentence
 //        if (first == null) {
+//            final List<String> questionVerbs = getVerbs(sentence);
 //            for (final Sentence contextSentence : getContextSentences()) {
-//                final TypeDependencyUtil.TypeDependencyData contextData = TypeDependencyUtil.getData(contextSentence.text());
-//                final Set<String> contextAntonyms = getVerbSynonyms(contextData);
-//                if (questionAntonyms != null && contextAntonyms != null && !Collections.disjoint(questionAntonyms, contextAntonyms)) {
+//                final List<String> contextVerbs = getVerbs(contextSentence);
+//                if (!Collections.disjoint(questionVerbs, contextVerbs)) {
 //                    first = contextSentence;
-//                    method5++;
-//                    method = 5;
+//                    method3++;
+//                    method = 3;
 //                    break;
 //                }
 //            }
 //        }
-        return first;
-    }
+//
+////        // 4. If Q-Verb = synonymOf(S-Verb), pick that sentence
+////        if (first == null) {
+////            for (final Sentence contextSentence : getContextSentences()) {
+////                final TypeDependencyUtil.TypeDependencyData contextData = TypeDependencyUtil.getData(contextSentence.text());
+////                final Set<String> contextSynonyms = getVerbSynonyms(contextData);
+////                if (questionSynonyms != null && contextSynonyms != null && !Collections.disjoint(questionSynonyms, contextSynonyms)) {
+////                    first = contextSentence;
+////                    method4++;
+////                    method = 4;
+////                    break;
+////                }
+////            }
+////        }
+////
+////        // 5. If Q-Verb = antonymOf(S-Verb), pick that sentence
+////        if (first == null) {
+////            for (final Sentence contextSentence : getContextSentences()) {
+////                final TypeDependencyUtil.TypeDependencyData contextData = TypeDependencyUtil.getData(contextSentence.text());
+////                final Set<String> contextAntonyms = getVerbSynonyms(contextData);
+////                if (questionAntonyms != null && contextAntonyms != null && !Collections.disjoint(questionAntonyms, contextAntonyms)) {
+////                    first = contextSentence;
+////                    method5++;
+////                    method = 5;
+////                    break;
+////                }
+////            }
+////        }
+//        return first;
+//    }
 
     private static List<String> getVerbs(final Sentence sentence) {
         final List<String> verbs = new ArrayList<>();
