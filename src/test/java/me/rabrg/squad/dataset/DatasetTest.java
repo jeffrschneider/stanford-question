@@ -271,8 +271,13 @@ public class DatasetTest {
     }
 
     private static void printRuleReport(final Dataset dataset) throws IOException {
-        final List<String> report = new ArrayList<>();
+        final StringBuilder report = new StringBuilder();
+
+        // Limit amount of articles to print to stay under Google sheets capacity
+        int articleCount = 0;
         for (final Article article : dataset.getData()) {
+            if (articleCount++ > 10)
+                break;
             for (final Paragraph paragraph : article.getParagraphs()) {
                 for (final QuestionAnswerService qas : paragraph.getQas()) {
                     final TypeDependencyUtil.TypeDependencyData questionData = TypeDependencyUtil.getData(qas.getQuestion());
@@ -321,23 +326,19 @@ public class DatasetTest {
                         final boolean containsAnswer = context.contains(qas.getAnswers().get(0).getText());
 
                         // Add to report
-                        report.add(question + "\t" + context + "\t" + rule0 + "\t" + rule1 + "\t" + rule2 + "\t" + rule3 + "\t" + rule4 + "\t" + rule5 + "\t" + total + "\t" + (containsAnswer ? "X" : "") + "\n");
+                        report.append(question).append("\t").append(context).append("\t").append(rule0).append("\t")
+                                .append(rule1).append("\t").append(rule2).append("\t").append(rule3).append("\t")
+                                .append(rule4).append("\t").append(rule5).append("\t").append(total).append("\t")
+                                .append(containsAnswer ? "X" : "").append("\n");
                     }
-                    report.add("\n\n");
+                    report.append("\n\n");
                 }
             }
         }
 
-        // Limit report size to 20k for Google sheets
-        final int reportSize = report.size();
-        final int maxSize = 20000;
-        if (reportSize > maxSize)
-            report.subList(maxSize, reportSize).clear();
-
         // Write report to file
         try (final BufferedWriter writer = new BufferedWriter(new FileWriter("rule-report.tsv"))) {
-            for (final String reportLine : report)
-                writer.write(reportLine);
+            writer.write(report.toString());
         }
     }
 }
