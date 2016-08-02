@@ -47,7 +47,7 @@ public class WordUtil {
             if (STOP_WORDS.contains(targetLemma))
                 continue;
             for (final String sourceLemma : source.lemmas()) {
-                if (!STOP_WORDS.contains(sourceLemma) && targetLemma.equals(sourceLemma))
+                if (!STOP_WORDS.contains(sourceLemma) && getRootLemma(targetLemma).equals(getRootLemma(sourceLemma)))
                     frequency++;
             }
         }
@@ -81,7 +81,7 @@ public class WordUtil {
         final List<String> verbs = new ArrayList<>();
         for (int i = 0; i < sentence.words().size(); i++)
             if (sentence.posTag(i).startsWith("V"))
-                verbs.add(new Sentence(sentence.word(i)).lemmas().get(0));
+                verbs.add(getRootLemma(sentence.word(i)));
         return verbs;
     }
 
@@ -95,5 +95,12 @@ public class WordUtil {
         if (data.getRelation() == null)
             return null;
         return WS4J.findAntonyms(data.getRelation(), POS.v); // TODO: lemmas?
+    }
+
+    public static String getRootLemma(final String word) {
+        final String lemma = new Sentence(word).lemmas().get(0);
+        if (lemma.equals(word))
+            return word;
+        return getRootLemma(lemma);
     }
 }

@@ -19,10 +19,10 @@ public class DatasetTest {
 
     public static void main(final String[] args) throws Exception {
 //        System.out.println(TypeDependencyUtil.getData("Another factor in the early 1990s that worked to radicalize the Islamist movement was the Gulf War, which brought several hundred thousand US and allied non-Muslim military personnel to Saudi Arabian soil to put an end to Saddam Hussein's occupation of Kuwait."));
-        System.setErr(new PrintStream(new OutputStream() {
-            public void write(int b) {
-            }
-        }));
+//        System.setErr(new PrintStream(new OutputStream() {
+//            public void write(int b) {
+//            }
+//        }));
         final Dataset dataset = Dataset.loadDataset("dev-v1.0.json");
         printRuleReport(dataset);
 //        cacheTriples(dataset);
@@ -273,16 +273,20 @@ public class DatasetTest {
     private static void printRuleReport(final Dataset dataset) throws IOException {
         final StringBuilder report = new StringBuilder();
 
-        // Limit amount of articles to print to stay under Google sheets capacity
+        int correct = 0, total = 0;
         int articleCount = 0;
         for (final Article article : dataset.getData()) {
             if (articleCount++ > 10)
                 break;
             for (final Paragraph paragraph : article.getParagraphs()) {
                 for (final QuestionAnswerService qas : paragraph.getQas()) {
+                    if (!qas.getQuestion().toLowerCase().startsWith("who"))
+                        continue;
+
                     final TypeDependencyUtil.TypeDependencyData questionData = TypeDependencyUtil.getData(qas.getQuestion());
                     final Set<String> questionRelationSynonyms = WordUtil.getVerbSynonyms(questionData);
                     final Set<String> questionRelationAntonyms = WordUtil.getVerbAntonyms(questionData);
+                    int highestScore = 0, correctScore = 0;
                     for (final Sentence contextSentence : paragraph.getContextSentences()) {
                         final TypeDependencyUtil.TypeDependencyData contextData = TypeDependencyUtil.getData(contextSentence.text());
                         final Set<String> contextRelationSynonyms = WordUtil.getVerbSynonyms(contextData);
@@ -320,25 +324,45 @@ public class DatasetTest {
                                 || contextRelationAntonyms != null && contextRelationAntonyms.contains(questionData.getRelation()) ? 2 : 0;
 
                         // Total score
-                        final int total = rule0 + rule1 + rule2 + rule3 + rule4 + rule5;
+                        final int totalScore = rule0 + rule1 + rule2 + rule3 + rule4 + rule5;
+
+                        if (totalScore > highestScore)
+                            highestScore = totalScore;
 
                         // Sentence contains answer
                         final boolean containsAnswer = context.contains(qas.getAnswers().get(0).getText());
 
+                        if (containsAnswer)
+                            correctScore = totalScore;
+
                         // Add to report
                         report.append(question).append('\t').append(context).append('\t').append(rule0).append('\t')
                                 .append(rule1).append('\t').append(rule2).append('\t').append(rule3).append('\t')
-                                .append(rule4).append('\t').append(rule5).append('\t').append(total).append('\t')
+                                .append(rule4).append('\t').append(rule5).append('\t').append(totalScore).append('\t')
                                 .append(containsAnswer ? 'X' : "").append('\n');
                     }
-                    report.append("\n\n");
+
+                    // Whether or not the highest rated sentence was the correct sentence
+                    final boolean correctSentence = correctScore == highestScore;
+
+                    // Increment the correct counter if the sentence was correct and increment the total counter regardless
+                    if (correctSentence)
+                        correct++;
+                    total++;
+
+                    // Add the correctness of the highest rated sentence to the report
+                    report.append(correctSentence ? "Correct" : "Incorrect").append(" sentence\n").append("\n\n");
                 }
             }
-        }
 
-        // Write report to file
-        try (final BufferedWriter writer = new BufferedWriter(new FileWriter("rule-report.tsv"))) {
-            writer.write(report.toString());
+            // Write report to file
+            try (final BufferedWriter writer = new BufferedWriter(new FileWriter("rule-report.tsv"))) {
+                writer.write(report.toString());
+                writer.write(correct + "/" + total + "\n");
+            }
+
+            // Log correct / total to console
+            System.out.println(correct + "/" + total);
         }
     }
 }
