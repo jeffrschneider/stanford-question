@@ -29,12 +29,6 @@ public final class Paragraph {
         if (contextSentences == null) {
             final Document document = new Document(context);
             contextSentences = document.sentences();
-//            CorefUtil.replaceContextPronouns(this);
-//            context = "";
-//            for (final Sentence sentence :contextSentences) {
-//                context += sentence.text() + " ";
-//            }
-//            context = context.trim();
         }
         return contextSentences;
     }

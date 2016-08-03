@@ -4,7 +4,6 @@ import edu.stanford.nlp.hcoref.CorefCoreAnnotations;
 import edu.stanford.nlp.hcoref.data.CorefChain;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-import edu.stanford.nlp.simple.Sentence;
 import me.rabrg.squad.dataset.Paragraph;
 
 import java.util.Arrays;
@@ -14,7 +13,7 @@ import java.util.Properties;
 
 public class CorefUtil {
 
-    private static final boolean DEBUG = false;
+    private static final boolean DEBUG = true;
 
     private static final List<String> PRONOUNS = Arrays.asList("hers", "herself", "him", "himself", "hisself", "it",
             "itself", "me", "myself", "one", "oneself", "ours", "ourselves", "ownself", "self", "she", "thee",
@@ -37,27 +36,7 @@ public class CorefUtil {
         final Map<Integer, CorefChain> graph = document.get(CorefCoreAnnotations.CorefChainAnnotation.class);
         for (Map.Entry<Integer, CorefChain> entry : graph.entrySet()) {
             CorefChain chain = entry.getValue();
-            final List<CorefChain.CorefMention> mentions = chain.getMentionsInTextualOrder();
-            if (mentions.size() > 1) { // TODO: word precision when not using exclusively pronouns
-                StringBuilder builder = new StringBuilder();
-                builder.append("Context before: " + paragraph.getContextSentences() + "\n");
-                boolean replaced = false;
-                final String first = mentions.get(0).mentionSpan;
-                for (int i = 1; i < mentions.size(); i++) {
-                    final CorefChain.CorefMention mention = mentions.get(i);
-                    if (PRONOUNS.contains(mention.mentionSpan.toLowerCase())) {
-                        replaced = true;
-                        builder.append("Replacing " + mention.mentionSpan + " with " + first + "\n");
-                        paragraph.getContextSentences().set(mention.sentNum - 1,
-                                new Sentence(paragraph.getContextSentences().get(mention.sentNum - 1).text().replace(mention.mentionSpan, first)));
-                    }
-                }
-                builder.append("Context after: " + paragraph.getContextSentences() + "\n");
-                builder.append("============\n");
-                if (DEBUG && replaced) {
-                    System.out.print(builder);
-                }
-            }
+            System.out.println(chain);
         }
     }
 }
