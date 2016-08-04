@@ -55,7 +55,7 @@ public class HomeCorefUtil {
                     // Replace the previous subject of the subject's plurality
                     if (singularCount > pluralCount)
                         lastSingular = subjectIndexWordMap.values();
-                    else if (pluralCount != 0) // TODO: are all valid subjects are nouns?
+                    else if (pluralCount != 0) // TODO: are all valid subjects nouns?
                         lastPlural = subjectIndexWordMap.values();
 
                     System.out.println("Sentence: " + sentence);
