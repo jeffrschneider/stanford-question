@@ -7,6 +7,7 @@ import edu.stanford.nlp.trees.PennTreebankLanguagePack;
 import edu.stanford.nlp.trees.TypedDependency;
 import me.rabrg.squad.dataset.Article;
 import me.rabrg.squad.dataset.Dataset;
+import me.rabrg.squad.dataset.DatasetTest;
 import me.rabrg.squad.dataset.Paragraph;
 
 import java.util.*;
@@ -25,6 +26,7 @@ public class HomeCorefUtil {
 
     public static void main(final String[] args) throws Exception {
         final Dataset dataset = Dataset.loadDataset("dev-v1.0.json");
+        DatasetTest.entitySubstitution(dataset);
         for (final Article article : dataset.getData()) {
             Collection<String> lastSingular = null, lastPlural = null;
             for (final Paragraph paragraph : article.getParagraphs()) {
@@ -52,27 +54,39 @@ public class HomeCorefUtil {
                         }
                     }
 
+                    // Backup the last singular and plural subjects in case the newest subject came after the pronoun
+                    final Collection<String> lastLastSingular = lastSingular != null ? new TreeSet<>(lastSingular) : null;
+                    final Collection<String> lastLastPlural = lastPlural != null ? new TreeSet<>(lastPlural) : null;
+
                     // Replace the previous subject of the subject's plurality
                     if (singularCount > pluralCount)
                         lastSingular = subjectIndexWordMap.values();
                     else if (pluralCount != 0) // TODO: are all valid subjects nouns?
                         lastPlural = subjectIndexWordMap.values();
 
-                    System.out.println("Sentence: " + sentence);
+                    System.out.println("Sentence: " + sentence.text());
 
                     // Iterate through the sentence replacing pronouns with the last subject of its type
                     final List<String> words = new ArrayList<>(sentence.words());
                     for (int i = 0; i < words.size(); i++) {
                         if (SINGULAR_PRONOUNS.contains(words.get(i).toLowerCase()) && lastSingular != null) {
-                            System.out.println("\tReplacing: " + words.get(i));
-                            System.out.println("\tWith: " + lastSingular);
-                            words.remove(i);
-                            words.addAll(i, lastSingular);
+                            final Collection<String> value = subjectIndexWordMap.keySet().iterator().next() > i
+                                    ? lastLastSingular : lastSingular;
+                            if (value != null) {
+                                System.out.println("\tReplacing: " + words.get(i));
+                                System.out.println("\tWith: " + value);
+                                words.remove(i);
+                                words.addAll(i, value);
+                            }
                         } else if (PLURAL_PRONOUNS.contains(words.get(i).toLowerCase()) && lastPlural != null) {
-                            System.out.println("\tReplacing: " + words.get(i));
-                            System.out.println("\tWith: " + lastPlural);
-                            words.remove(i);
-                            words.addAll(i, lastPlural);
+                            final Collection<String> value = subjectIndexWordMap.keySet().iterator().next() > i
+                                    ? lastLastPlural : lastPlural;
+                            if (value != null) {
+                                System.out.println("\tReplacing: " + words.get(i));
+                                System.out.println("\tWith: " + value);
+                                words.remove(i);
+                                words.addAll(i, value);
+                            }
                         }
                     }
                     System.out.println();
@@ -86,15 +100,18 @@ public class HomeCorefUtil {
 
         final List<TypedDependency> dependencies = structureFactory.newGrammaticalStructure(parser.parse(text))
                 .typedDependenciesCCprocessed();
-        String rootSubject = null;
+        int rootIndex = -1;
         for (final TypedDependency dependency : dependencies)
             if (dependency.reln().toString().contains("root"))
-                rootSubject = dependency.dep().word();
+                rootIndex = dependency.dep().index();
 
+        int secondaryRootIndex = -1;
         for (int i = dependencies.size() - 1; i >= 0; i--) {
             final TypedDependency dependency = dependencies.get(i);
+            if (dependency.reln().toString().contains("subj") && dependency.gov().index() == rootIndex)
+                secondaryRootIndex = dependency.dep().index();
             if ((dependency.reln().toString().contains("subj") || dependency.reln().toString().contains("compound"))
-                    && dependency.gov().word().equals(rootSubject))
+                    && (dependency.gov().index() == rootIndex || dependency.gov().index() == secondaryRootIndex))
                 map.put(dependency.dep().index(), dependency.dep().word());
         }
         return map;

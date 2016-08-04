@@ -384,7 +384,7 @@ public class DatasetTest {
         }
     }
 
-    private static void entitySubstitution(final Dataset dataset) {
+    public static void entitySubstitution(final Dataset dataset) {
         final Article article = dataset.getData().get(0);
         final List<String> entities = new ArrayList<>();
         for (final Paragraph paragraph : article.getParagraphs()) {
@@ -399,7 +399,7 @@ public class DatasetTest {
                     if (tag.equals("O") && entity.length() > 0 && !entities.contains(entity)) {
                         entities.add(entity.trim());
                         entity = "";
-                    } else if (tag.equals("PERSON") || tag.equals("LOCATION")) {
+                    } else if (tag.equals("PERSON")) {
                         entity += word + " ";
                     }
                 }
@@ -416,7 +416,7 @@ public class DatasetTest {
                 final Sentence sentence = paragraph.getContextSentences().get(i);
                 String text = sentence.text();
                 for (final Map.Entry<String, String> entry : replacements.entrySet()) {
-                    if (sentence.text().contains(" " + entry.getKey() + " ")) {
+                    if (sentence.text().contains(entry.getKey())) {
                         text = text.replace(entry.getValue(), entry.getKey()).replace(entry.getKey(), entry.getValue());
                     }
                 }
