@@ -81,7 +81,6 @@ public class HomeCorefUtil {
                     else if (pluralCount != 0) // TODO: are all valid subjects nouns?
                         lastPlural = subjectIndexWordMap.values();
 
-                    System.out.println(subjectIndexWordMap.values().iterator().next() + " IS " + gender);
                     System.out.println("Sentence: " + sentence.text());
 
                     // Iterate through the sentence replacing pronouns with the last subject of its type
