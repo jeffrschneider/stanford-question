@@ -29,7 +29,7 @@ public class HomeCorefUtil {
             Collection<String> lastSingular = null, lastPlural = null;
             for (final Paragraph paragraph : article.getParagraphs()) {
                 for (final Sentence sentence : paragraph.getContextSentences()) {
-                    if (sentence.text().contains("champion"))
+                    if (sentence.text().contains("champion")) // Skips Stanford parse error
                         continue;
 
                     // Populate an ordered map consisting of word index keys and word values
@@ -40,7 +40,7 @@ public class HomeCorefUtil {
                     int singularCount = 0, pluralCount = 0;
                     final List<String> posTags = sentence.posTags();
                     for (final Map.Entry<Integer, String> entry : subjectIndexWordMap.entrySet()) {
-                        switch (posTags.get(entry.getKey() - 1)) {
+                        switch (posTags.get(entry.getKey() - 1)) { // The line that wasted an hour of my life
                             case "NN":
                             case "NNP":
                                 singularCount++;
@@ -87,11 +87,9 @@ public class HomeCorefUtil {
         final List<TypedDependency> dependencies = structureFactory.newGrammaticalStructure(parser.parse(text))
                 .typedDependenciesCCprocessed();
         String rootSubject = null;
-        for (final TypedDependency dependency : dependencies) {
-            if (dependency.reln().toString().contains("root")) {
+        for (final TypedDependency dependency : dependencies)
+            if (dependency.reln().toString().contains("root"))
                 rootSubject = dependency.dep().word();
-            }
-        }
 
         for (int i = dependencies.size() - 1; i >= 0; i--) {
             final TypedDependency dependency = dependencies.get(i);
