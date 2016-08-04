@@ -65,7 +65,8 @@ public class HomeCorefUtil {
                     final Collection<String> lastLastFemale = lastFemale != null ? new TreeSet<>(lastFemale) : null;
 
                     // Replace the previous subject of the subject's plurality and gender
-                    final GenderUtil.Gender gender = GenderUtil.getGender(subjectIndexWordMap.values().iterator().next());
+//                    final GenderUtil.Gender gender = GenderUtil.getGender(subjectIndexWordMap.values().iterator().next());
+                    final GenderUtil.Gender gender = GenderUtil.Gender.UNSPECIFIED; // TODO: fix Gender problem
                     if (singularCount > pluralCount) {
                         switch (gender) {
                             case MALE:
