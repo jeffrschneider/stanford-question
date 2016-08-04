@@ -14,6 +14,10 @@ import java.util.*;
 
 public class HomeCorefUtil {
 
+    private static final List<String> MALE_PRONOUNS = Arrays.asList("he", "him", "himself", "his");
+
+    private static final List<String> FEMALE_PRONOUNS = Arrays.asList("she", "her", "herself", "hers");
+
     private static final List<String> SINGULAR_PRONOUNS = Arrays.asList("he", "him", "himself", "his", "she", "her",
             "herself", "hers", "it", "itself", "its", "themself");
 
@@ -28,7 +32,7 @@ public class HomeCorefUtil {
         final Dataset dataset = Dataset.loadDataset("dev-v1.0.json");
         DatasetTest.entitySubstitution(dataset);
         for (final Article article : dataset.getData()) {
-            Collection<String> lastSingular = null, lastPlural = null;
+            Collection<String> lastSingular = null, lastPlural = null, lastMale = null, lastFemale = null;
             for (final Paragraph paragraph : article.getParagraphs()) {
                 for (final Sentence sentence : paragraph.getContextSentences()) {
                     if (sentence.text().contains("champion")) // Skips Stanford parse error
@@ -57,19 +61,50 @@ public class HomeCorefUtil {
                     // Backup the last singular and plural subjects in case the newest subject came after the pronoun
                     final Collection<String> lastLastSingular = lastSingular != null ? new TreeSet<>(lastSingular) : null;
                     final Collection<String> lastLastPlural = lastPlural != null ? new TreeSet<>(lastPlural) : null;
+                    final Collection<String> lastLastMale = lastMale != null ? new TreeSet<>(lastMale) : null;
+                    final Collection<String> lastLastFemale = lastFemale != null ? new TreeSet<>(lastFemale) : null;
 
-                    // Replace the previous subject of the subject's plurality
-                    if (singularCount > pluralCount)
+                    // Replace the previous subject of the subject's plurality and gender
+                    final GenderUtil.Gender gender = GenderUtil.getGender(subjectIndexWordMap.values().iterator().next());
+                    if (singularCount > pluralCount) {
+                        switch (gender) {
+                            case MALE:
+                                lastMale = subjectIndexWordMap.values();
+                                break;
+                            case FEMALE:
+                                lastFemale = subjectIndexWordMap.values();
+                                break;
+                        }
                         lastSingular = subjectIndexWordMap.values();
+                    }
                     else if (pluralCount != 0) // TODO: are all valid subjects nouns?
                         lastPlural = subjectIndexWordMap.values();
 
+                    System.out.println(subjectIndexWordMap.values().iterator().next() + " IS " + gender);
                     System.out.println("Sentence: " + sentence.text());
 
                     // Iterate through the sentence replacing pronouns with the last subject of its type
                     final List<String> words = new ArrayList<>(sentence.words());
                     for (int i = 0; i < words.size(); i++) {
-                        if (SINGULAR_PRONOUNS.contains(words.get(i).toLowerCase()) && lastSingular != null) {
+                        if (MALE_PRONOUNS.contains(words.get(i).toLowerCase()) && lastMale != null) {
+                            final Collection<String> value = subjectIndexWordMap.keySet().iterator().next() > i
+                                    ? lastLastMale : lastMale;
+                            if (value != null) {
+                                System.out.println("\tReplacing: " + words.get(i));
+                                System.out.println("\tWith: " + value);
+                                words.remove(i);
+                                words.addAll(i, value);
+                            }
+                        } else if (FEMALE_PRONOUNS.contains(words.get(i).toLowerCase()) && lastFemale != null) {
+                            final Collection<String> value = subjectIndexWordMap.keySet().iterator().next() > i
+                                    ? lastLastFemale : lastFemale;
+                            if (value != null) {
+                                System.out.println("\tReplacing: " + words.get(i));
+                                System.out.println("\tWith: " + value);
+                                words.remove(i);
+                                words.addAll(i, value);
+                            }
+                        } else if (SINGULAR_PRONOUNS.contains(words.get(i).toLowerCase()) && lastSingular != null) {
                             final Collection<String> value = subjectIndexWordMap.keySet().iterator().next() > i
                                     ? lastLastSingular : lastSingular;
                             if (value != null) {
