@@ -1,13 +1,13 @@
 1	the Broncos elected to wear white jerseys with matching white pants As the designated home team in the annual rotation between AFC teams
 1	the Broncos elected to wear white jerseys with matching white pants As the designated home team in the annual rotation between NFC teams
 1	their has road
-2	Elway stated We 've had Super Bowl success in our white uniforms
+2	John Elway stated We 've had Super Bowl success in our white uniforms
 2	We 've had Super Bowl success in our white uniforms
 2	our has white uniforms
 3	The Broncos wore matching white jerseys in the Super Bowl in Super Bowl XXXIII last
 3	The Broncos wore matching white pants in the Super Bowl in Super Bowl XXXIII last
-3	Super Bowl XXXIII is Elway 's last game as Denver QB
-3	Elway has last game as Denver QB
+3	Super Bowl XXXIII is John Elway 's last game as Denver QB
+3	John Elway has last game as Denver QB
 3	they defeated the Atlanta Falcons 34â $ 19 Denver QB when
 3	the Atlanta Falcons 34â $ 19
 4	their has only other Super Bowl win in Super Bowl XXXII

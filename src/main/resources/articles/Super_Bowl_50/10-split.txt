@@ -10,25 +10,25 @@
 2	a career-best quarterback rating of 99.4 is 35 passing 10 rushing
 2	45 total touchdowns is a career-low 10 interceptions
 2	a career-best quarterback rating of 99.4 is a career-low 10 interceptions
-3	Newton has leading receivers
-3	Newton 's leading receivers were tight end Greg Olsen
-3	Newton 's leading receivers were wide receiver Ted Ginn
+3	Cam Newton has leading receivers
+3	Cam Newton 's leading receivers were tight end Greg Olsen
+3	Cam Newton 's leading receivers were wide receiver Ted Ginn Jr.
 3	tight end Greg Olsen caught a career-high 77 passes for 1,104 yards
 3	tight end Greg Olsen caught a career-high 77 passes for seven touchdowns
-3	wide receiver Ted Ginn caught a career-high 77 passes for 1,104 yards
-3	wide receiver Ted Ginn caught a career-high 77 passes for seven touchdowns
-3	wide receiver Ted Ginn is Jr.
-3	wide receiver Ted Ginn caught 44 passes for 739 yards
-3	wide receiver Ted Ginn caught 44 passes for 10 touchdowns
-3	Ginn rushed for 60 yards also
-3	Ginn returned 27 punts for 277 yards
+3	wide receiver Ted Ginn Jr. caught a career-high 77 passes for 1,104 yards
+3	wide receiver Ted Ginn Jr. caught a career-high 77 passes for seven touchdowns
+3	wide receiver Ted Ginn Jr. is Ted Ginn Jr.
+3	wide receiver Ted Ginn Jr. caught 44 passes for 739 yards
+3	wide receiver Ted Ginn Jr. caught 44 passes for 10 touchdowns
+3	Ted Ginn Jr. rushed for 60 yards also
+3	Ted Ginn Jr. returned 27 punts for 277 yards
 4	Other key receivers included veteran Jerricho Cotchery 39 receptions for 485 yards
 4	Other key receivers included rookie Devin Funchess 31 receptions for 473 yards
 4	Other key receivers included rookie Devin Funchess 31 receptions for five touchdowns
 4	Other key receivers included second-year receiver Corey Brown 31 receptions for 447 yards
-5	The Panthers backfield featured Pro Bowl running back Jonathan Stewart
-5	Jonathan Stewart led the team with 989 rushing yards in 13 games along with Pro Bowl fullback Mike Tolbert
-5	Jonathan Stewart led the team with 989 rushing six touchdowns in 13 games along with Pro Bowl fullback Mike Tolbert
+5	The Panthers backfield featured Pro Bowl running back Jonathan Darian Stewart
+5	Jonathan Darian Stewart led the team with 989 rushing yards in 13 games along with Pro Bowl fullback Mike Tolbert
+5	Jonathan Darian Stewart led the team with 989 rushing six touchdowns in 13 games along with Pro Bowl fullback Mike Tolbert
 5	Pro Bowl fullback Mike Tolbert rushed for 256 yards
 5	Pro Bowl fullback Mike Tolbert caught 18 passes for another 154 yards
 6	Carolina has offensive line also featured two Pro Bowl selections Ryan Kalil

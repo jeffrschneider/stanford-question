@@ -13,11 +13,11 @@
 4	defensive end Kony Ealy had 5 sacks in just 9 starts
 5	two of the Panthers three starting linebackers were selected to play in the Pro Bowl Thomas Davis Behind them also
 5	two of the Panthers three starting linebackers were selected to play in the Pro Bowl Luke Kuechly Behind them also
-6	Davis compiled 5Â 1/2 sacks while Kuechly led the team in tackles forced two fumbles
-6	Davis compiled four forced fumbles while Kuechly led the team in tackles forced two fumbles
-6	Davis compiled four interceptions while Kuechly led the team in tackles forced two fumbles
-6	Davis intercepted four passes of his own
-6	Kuechly led the team in tackles forced two fumbles
+6	Thomas Davis compiled 5Â 1/2 sacks while Luke Kuechly led the team in tackles forced two fumbles
+6	Thomas Davis compiled four forced fumbles while Luke Kuechly led the team in tackles forced two fumbles
+6	Thomas Davis compiled four interceptions while Luke Kuechly led the team in tackles forced two fumbles
+6	Thomas Davis intercepted four passes of his own
+6	Luke Kuechly led the team in tackles forced two fumbles
 6	tackles forced two fumbles is 118
 6	his has own
 7	Carolina 's secondary featured Pro Bowl safety Kurt Coleman

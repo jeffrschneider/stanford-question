@@ -1,13 +1,13 @@
-1	Rivera having been a linebacker with the Chicago Bears in Super Bowl XX in Super Bowls XXI
-1	Rivera having been a linebacker with the Chicago Bears in Super Bowl XX in Super Bowls XXIV
-1	Rivera having been Kubiak replacing Elway at the end of the Broncos defeats with the Chicago Bears in Super Bowl XX in Super Bowls XXI
-1	Rivera having been Kubiak replacing Elway at the end of the Broncos defeats with the Chicago Bears in Super Bowl XX in Super Bowls XXIV
-1	the Broncos has defeats
-1	this will be the first Super Bowl With Rivera having been a linebacker with the Chicago Bears in Super Bowl XX in Super Bowls XXI
-1	this will be the first Super Bowl With Rivera having been Kubiak replacing Elway at the end of the Broncos defeats in Super Bowls XXI
-1	this will be the first Super Bowl With Rivera having been Kubiak replacing Elway at the end of the Broncos defeats in Super Bowls XXIV
-1	this will be the first Super Bowl With Rivera having been a linebacker with the Chicago Bears in Super Bowl XX in Super Bowls XXIV
-1	both head coaches played in the game themselves With Rivera having been a linebacker with the Chicago Bears in Super Bowl XX in Super Bowls XXI the first Super Bowl in which
-1	both head coaches played in the game themselves With Rivera having been Kubiak replacing Elway at the end of the Broncos defeats in Super Bowls XXI the first Super Bowl in which
-1	both head coaches played in the game themselves With Rivera having been Kubiak replacing Elway at the end of the Broncos defeats in Super Bowls XXIV the first Super Bowl in which
-1	both head coaches played in the game themselves With Rivera having been a linebacker with the Chicago Bears in Super Bowl XX in Super Bowls XXIV the first Super Bowl in which
+1	Rivera having been a linebacker with the Chicago Bears in Super Bowl XX
+1	Rivera having been Gary Kubiak replacing John Elway at the end of the Broncos defeats in Super Bowls XXI with the Chicago Bears in Super Bowl XX
+1	Rivera having been Gary Kubiak replacing John Elway at the end of the Broncos defeats in Super Bowls XXIV with the Chicago Bears in Super Bowl XX
+1	Gary Kubiak be replacing John Elway at the end of the Broncos defeats in Super Bowls XXI
+1	Gary Kubiak be replacing John Elway at the end of the Broncos defeats in Super Bowls XXIV
+1	the Broncos has defeats in Super Bowls XXI
+1	the Broncos has defeats in Super Bowls XXIV
+1	this will be the first Super Bowl With Rivera having been a linebacker with the Chicago Bears in Super Bowl XX
+1	this will be the first Super Bowl With Rivera having been in Super Bowl XX Gary Kubiak replacing John Elway at the end of the Broncos defeats in Super Bowls XXI
+1	this will be the first Super Bowl With Rivera having been in Super Bowl XX Gary Kubiak replacing John Elway at the end of the Broncos defeats in Super Bowls XXIV
+1	both head coaches played in the game themselves With Rivera having been a linebacker with the Chicago Bears in Super Bowl XX the first Super Bowl in which
+1	both head coaches played in the game themselves With Rivera having been in Super Bowl XX Gary Kubiak replacing John Elway at the end of the Broncos defeats in Super Bowls XXI the first Super Bowl in which
+1	both head coaches played in the game themselves With Rivera having been in Super Bowl XX Gary Kubiak replacing John Elway at the end of the Broncos defeats in Super Bowls XXIV the first Super Bowl in which

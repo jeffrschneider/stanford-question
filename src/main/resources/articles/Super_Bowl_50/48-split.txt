@@ -3,14 +3,15 @@
 1	a fumble while be tackled by safety Darian Stewart
 1	safety Darian Stewart linebacker Danny Trevathan recovered on the Broncos 40-yard line
 1	Danny Trevathan recovered on the Broncos 40-yard line
-2	the Panthers took the ball back when defensive end Kony Ealy tipped a Manning pass to himself However soon
+2	the Panthers took the ball back when defensive end Kony Ealy tipped a Peyton Manning pass to himself However soon
 2	the Panthers intercepted it returning the ball 19 yards to the Panthers 39-yard line with 1:55 left on the clock However soon then
-2	defensive end Kony Ealy tipped a Manning pass to himself when
+2	defensive end Kony Ealy tipped a Peyton Manning pass to himself when
+2	a Peyton Manning pass to himself
 2	1:55 be left on the clock
 3	The Panthers could not gain any yards with their possession
 3	The Panthers had to punt
 3	their has possession
 4	Carolina drove to the Broncos 45-yard line After a Denver punt
 5	11 seconds be left
-5	Newton was sacked by DeMarcus Ware as time expired in the half with 11 seconds left
+5	Cam Newton was sacked by DeMarcus Ware as time expired in the half with 11 seconds left
 5	time be expired in the half

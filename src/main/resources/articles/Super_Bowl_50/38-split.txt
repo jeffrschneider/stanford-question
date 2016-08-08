@@ -1,10 +1,10 @@
-1	20th Century Fox paid for movie trailers to be aired during the Super Bowl
+1	20th Century John Fox paid for movie trailers to be aired during the Super Bowl
 1	Lionsgate paid for movie trailers to be aired during the Super Bowl
 1	Paramount Pictures paid for movie trailers to be aired during the Super Bowl
 1	Universal Studios paid for movie trailers to be aired during the Super Bowl
 1	Walt Disney Studios paid for movie trailers to be aired during the Super Bowl
-2	Fox paid for Deadpool Apocalypse Resurgence the Eagle
-2	Fox paid for Deadpool Apocalypse Eddie the Eagle
+2	John Fox paid for Deadpool Apocalypse Resurgence the Eagle
+2	John Fox paid for Deadpool Apocalypse Eddie the Eagle
 2	Deadpool Apocalypse Resurgence the Eagle is Lionsgate paid for Gods of Egypt Paramount paid for Teenage Mutant Ninja Turtles
 2	Deadpool Apocalypse Eddie the Eagle is Lionsgate paid for Gods of Egypt Paramount paid for Teenage Mutant Ninja Turtles
 2	Deadpool Apocalypse Resurgence the Eagle is X-Men
