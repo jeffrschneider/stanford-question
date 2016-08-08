@@ -1,0 +1,22 @@
+1	The Panthers seemed primed to score on their opening drive of the second half when Newton completed a 45-yard pass to Ted Ginn Jr. on the Denver 35-yard line on their second offensive play
+1	their has opening drive of the second half
+1	Newton completed a 45-yard pass to Ted Ginn Jr. on the Denver 35-yard line on their second offensive play when
+1	their has second offensive play
+2	the Broncos defense halted the drive on the 26-yard line
+2	it ended with no points when Graham Gano hit the uprights on a 44-yard field goal attempt
+2	Graham Gano hit the uprights on a 44-yard field goal attempt when
+3	Manning completed a pair of passes to Emmanuel Sanders for gains of 25 yards setting up McManus 33-yard field goal After the miss
+3	Manning completed a pair of passes to Emmanuel Sanders for gains of 22 yards setting up McManus 33-yard field goal After the miss
+3	Manning be setting McManus 33-yard field goal
+3	McManus has 33-yard field goal
+3	McManus 33-yard field goal gave the Broncos a 16â $ 7 lead
+4	Carolina got off to another strong start after the kickoff with Newton completing a 42-yard pass to Corey Brown
+4	Newton completing a 42-yard pass to Corey Brown
+5	they came up empty once again
+5	empty is this time as a result of a Newton pass
+5	this time as a result of a Newton pass bounced off the hands of Ginn
+5	this time as a result of a Newton pass was intercepted by safety T. J. Ward
+6	Ward fumbled the ball during the return
+6	Trevathan recovered it to enable Denver to keep possession
+6	it to enable Denver to keep possession
+6	Denver to keep possession

@@ -3,16 +3,20 @@ package me.rabrg.squad.dataset;
 import com.google.gson.Gson;
 import edu.stanford.nlp.hcoref.data.CorefChain;
 import edu.stanford.nlp.parser.lexparser.LexicalizedParser;
+import edu.stanford.nlp.patterns.Data;
 import edu.stanford.nlp.simple.Document;
 import edu.stanford.nlp.simple.Sentence;
 import edu.stanford.nlp.trees.GrammaticalStructureFactory;
 import edu.stanford.nlp.trees.PennTreebankLanguagePack;
 import edu.stanford.nlp.trees.TypedDependency;
+import me.rabrg.util.HomeCorefUtil;
 import me.rabrg.util.MapUtil;
 import me.rabrg.util.TypeDependencyUtil;
 import me.rabrg.util.WordUtil;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class DatasetTest {
@@ -24,10 +28,9 @@ public class DatasetTest {
 //            }
 //        }));
         final Dataset dataset = Dataset.loadDataset("dev-v1.0.json");
-        printRuleReport(dataset);
-        entitySubstitution(dataset);
-        read = true;
-        printRuleReport(dataset);
+        DatasetTest.entitySubstitution(dataset);
+        HomeCorefUtil.apply(dataset);
+        shortTest(dataset);
 
 //        cacheTriples(dataset);
     }
@@ -50,49 +53,10 @@ public class DatasetTest {
                         continue;
 
                     questions.add(qas.getQuestion());
-                    final TypeDependencyUtil.TypeDependencyData questionData = TypeDependencyUtil.getData(qas.getQuestion());
-                    final Set<String> questionRelationSynonyms = WordUtil.getVerbSynonyms(questionData);
-                    final Set<String> questionRelationAntonyms = WordUtil.getVerbAntonyms(questionData);
                     int highestScore = 0, correctScore = 0;
                     Sentence highestSentence = null, correctSentence = null;
                     for (final Sentence contextSentence : paragraph.getContextSentences()) {
-                        final TypeDependencyUtil.TypeDependencyData contextData = TypeDependencyUtil.getData(contextSentence.text());
-                        final Set<String> contextRelationSynonyms = WordUtil.getVerbSynonyms(contextData);
-                        final Set<String> contextRelationAntonyms = WordUtil.getVerbAntonyms(contextData);
-
-                        // Question
-                        final String question = qas.getQuestion();
-
-                        // Context sentence
-                        final String context = contextSentence.text();
-
-                        // Term frequency
-                        final int rule0 = WordUtil.getLemmaFrequency(contextSentence, qas.getQuestionSentence());
-
-                        // Relation object match
-                        final int rule1 = questionData.getRelation() != null && questionData.getObject() != null
-                                && questionData.getRelation().equalsIgnoreCase(contextData.getRelation())
-                                && questionData.getObject().equalsIgnoreCase(contextData.getObject()) ? 3 : 0;
-
-                        // Relation object-subject match
-                        final int rule2 = questionData.getRelation() != null && questionData.getObject() != null
-                                && questionData.getRelation().equalsIgnoreCase(contextData.getRelation())
-                                && questionData.getObject().equalsIgnoreCase(contextData.getSubject()) ? 3 : 0;
-
-                        // Any verb match
-                        final int rule3 = !Collections.disjoint(WordUtil.getVerbs(contextSentence),
-                                WordUtil.getVerbs(qas.getQuestionSentence())) ? 2 : 0;
-
-                        // Relation synonym match
-                        final int rule4 = questionRelationSynonyms != null && questionRelationSynonyms.contains(contextData.getRelation())
-                                || contextRelationSynonyms != null && contextRelationSynonyms.contains(questionData.getRelation()) ? 2 : 0;
-
-                        // Relation antonym match
-                        final int rule5 = questionRelationAntonyms != null && questionRelationAntonyms.contains(contextData.getRelation())
-                                || contextRelationAntonyms != null && contextRelationAntonyms.contains(questionData.getRelation()) ? 2 : 0;
-
-                        // Total score
-                        final int totalScore = rule0 + rule1 + rule2 + rule3 + rule4 + rule5;
+                        final int totalScore = score(qas.getQuestionSentence(), contextSentence).getTotal();
 
                         if (totalScore > highestScore) {
                             highestSentence = contextSentence;
@@ -100,18 +64,12 @@ public class DatasetTest {
                         }
 
                         // Sentence contains answer
-                        final boolean containsAnswer = context.contains(qas.getAnswers().get(0).getText());
+                        final boolean containsAnswer = contextSentence.text().contains(qas.getAnswers().get(0).getText());
 
                         if (containsAnswer) {
                             correctSentence = contextSentence;
                             correctScore = totalScore;
                         }
-
-                        // Add to report
-                        report.append(question).append('\t').append(context).append('\t').append(rule0).append('\t')
-                                .append(rule1).append('\t').append(rule2).append('\t').append(rule3).append('\t')
-                                .append(rule4).append('\t').append(rule5).append('\t').append(totalScore).append('\t')
-                                .append(containsAnswer ? 'X' : "").append('\n');
                     }
 
                     // Whether or not the highest rated sentence was the correct sentence
@@ -142,6 +100,67 @@ public class DatasetTest {
             System.out.println(correct + "/" + total);
         }
     }
+
+    private static Score score(final Sentence questionSentence, final Sentence contextSentence) {
+        final TypeDependencyUtil.TypeDependencyData questionData = TypeDependencyUtil.getData(questionSentence.text());
+        final Set<String> questionRelationSynonyms = WordUtil.getVerbSynonyms(questionData);
+        final Set<String> questionRelationAntonyms = WordUtil.getVerbAntonyms(questionData);
+
+        final TypeDependencyUtil.TypeDependencyData contextData = TypeDependencyUtil.getData(contextSentence.text());
+        final Set<String> contextRelationSynonyms = WordUtil.getVerbSynonyms(contextData);
+        final Set<String> contextRelationAntonyms = WordUtil.getVerbAntonyms(contextData);
+
+        final Score score = new Score();
+
+        // Term frequency
+        score.rule0 = 0;
+//        score.rule0 = WordUtil.getLemmaFrequency(contextSentence, questionSentence);
+
+        // Relation object match
+        score.rule1 = questionData.getRelation() != null && questionData.getObject() != null
+                && questionData.getRelation().equalsIgnoreCase(contextData.getRelation())
+                && questionData.getObject().equalsIgnoreCase(contextData.getObject()) ? 3 : 0;
+
+        // Relation object-subject match
+        score.rule2 = questionData.getRelation() != null && questionData.getObject() != null
+                && questionData.getRelation().equalsIgnoreCase(contextData.getRelation())
+                && questionData.getObject().equalsIgnoreCase(contextData.getSubject()) ? 3 : 0;
+
+        // Any verb match
+        score.rule3 = !Collections.disjoint(WordUtil.getVerbs(contextSentence),
+                WordUtil.getVerbs(questionSentence)) ? 2 : 0;
+
+        // Relation synonym match
+        score.rule4 = questionRelationSynonyms != null && questionRelationSynonyms.contains(contextData.getRelation())
+                || contextRelationSynonyms != null && contextRelationSynonyms.contains(questionData.getRelation()) ? 2 : 0;
+
+        // Relation antonym match
+        score.rule5 = questionRelationAntonyms != null && questionRelationAntonyms.contains(contextData.getRelation())
+                || contextRelationAntonyms != null && contextRelationAntonyms.contains(questionData.getRelation()) ? 2 : 0;
+
+        return score;
+    }
+
+    static class Score {
+        int rule0, rule1, rule2, rule3, rule4, rule5;
+
+        int getTotal() {
+            return rule0 + rule1 + rule3 + rule4 + rule5;
+        }
+
+        @Override
+        public String toString() {
+            return "Score{" +
+                    "rule0=" + rule0 +
+                    ", rule1=" + rule1 +
+                    ", rule2=" + rule2 +
+                    ", rule3=" + rule3 +
+                    ", rule4=" + rule4 +
+                    ", rule5=" + rule5 +
+                    '}';
+        }
+    }
+
     private static void printOrderedFirstWord(final Dataset dataset) {
         final Map<String, Integer> map = new HashMap<>();
         for (final Article article : dataset.getData()) {
@@ -440,5 +459,58 @@ public class DatasetTest {
         // If changes were made attempt to make more changes
         if (removed.size() > 0)
             replaceEntities(tags, replacements);
+    }
+
+    public static void shortTest(final Dataset dataset) throws Exception {
+        final Article article = dataset.getData().get(0);
+        int pi = 0;
+        int correct = 0;
+        int total = 0;
+        for (final Paragraph paragraph : article.getParagraphs()) {
+            final List<String> lines = Files.readAllLines(Paths.get("C:\\Users\\Ryan\\IdeaProjects\\stanford-question\\src\\main\\resources\\articles\\Super_Bowl_50\\" + pi + "-split.txt"));
+            final Map<Integer, List<String>> shortSentences = new TreeMap<>();
+            for (final String line : lines) {
+                final int index = Integer.parseInt(line.split("\t")[0]) - 1;
+                final String sentence = line.split("\t")[1];
+                final List<String> sentences = shortSentences.getOrDefault(index, new ArrayList<>());
+                sentences.add(sentence);
+                shortSentences.put(index, sentences);
+            }
+            for (final QuestionAnswerService qas : paragraph.getQas()) {
+                if (!qas.getQuestion().toLowerCase().startsWith("who"))
+                    continue;
+                Score highestScore = new Score();
+                Sentence highestSentence = null;
+                for (final String line : lines) {
+                    String text = line.split("\t")[1];
+                    final Sentence context = new Sentence(text);
+                    Score score = score(qas.getQuestionSentence(), context);
+                    if (score.getTotal() > highestScore.getTotal()) {
+                        highestScore = score;
+                        highestSentence = context;
+                    }
+                }
+                total++;
+                if (highestSentence != null) {
+                    final boolean correctSentence = highestSentence.text().contains(qas.getAnswers().get(0).getText());
+                    if (!correctSentence) {
+                        String realSentence = null;
+                        for (final String sentence : lines) {
+                            if (sentence.contains(qas.getAnswers().get(0).getText())) {
+                                realSentence = sentence;
+                                break;
+                            }
+                        }
+                        System.out.println(qas.getQuestion() + "\t" + qas.getAnswers().get(0).getText() + "\t" + highestSentence.text() + "\t" + highestScore + "\t" + (realSentence != null ? realSentence.split("\t")[1] : "NO SENTENCE CONTAINED ANSWER") + "\t" + (realSentence != null ? score(qas.getQuestionSentence(), new Sentence(realSentence.split("\t")[1])) : "NO SENTENCE CONTAINED ANSWER"));
+                    } else {
+                        System.out.println(qas.getQuestion() + "\t" + qas.getAnswers().get(0).getText() + "\t" + highestSentence.text() + "\t" + highestScore + "\t" + "CORRECT SENTENCE");
+                        correct++;
+                    }
+                } else {
+                    System.out.println(qas.getQuestion() + "\t" + qas.getAnswers().get(0).getText() + "\t" + "NO SENTENCES RECEIVED SCORE");
+                }
+            }
+            pi++;
+        }
     }
 }

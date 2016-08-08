@@ -1,0 +1,36 @@
+# This is a comment
+# added by luciano
+# added by Greg
+
+act
+appear
+be
+become
+come
+come out
+end up
+get
+go
+grow
+fall
+feel
+keep
+leave
+live
+lie
+look
+love
+prove
+remain
+run
+seem
+smell
+sound
+stay
+stand
+taste
+try
+turn
+turn up
+wax
+wind up

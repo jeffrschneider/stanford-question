@@ -1,0 +1,7 @@
+1	The league narrowed the bids to three sites New Orleans Mercedes-Benz Superdome eventually
+1	The league narrowed the bids to three sites Miami 's Sun Life Stadium eventually
+1	The league narrowed the bids to three sites the San Francisco Bay Area 's Levi 's Stadium eventually
+1	New Orleans has Mercedes-Benz Superdome
+1	Miami has Sun Life Stadium
+1	the San Francisco Bay Area has Levi 's Stadium
+1	Levi has the San Francisco Bay Area 's Stadium

@@ -1,0 +1,31 @@
+1	CBS set the base rate for a 30-second advertisement at $ 5,000,000
+1	$ 5,000,000 is a record high price for a Super Bowl ad
+2	the advertisements had not sold out As of January 26 yet
+3	CBS mandated that all advertisers purchase a package covering time on both the television meaning that for the first time digital streams of the game would carry all national advertising in pattern with the television broadcast
+3	CBS mandated that all advertisers purchase a package covering time on digital broadcasts of the game meaning that for the first time digital streams of the game would carry all national advertising in pattern with the television broadcast
+3	all advertisers purchase a package covering time on both the television meaning that for the first time digital streams of the game would carry all national advertising in pattern with the television broadcast
+3	all advertisers purchase a package covering time on digital broadcasts of the game meaning that for the first time digital streams of the game would carry all national advertising in pattern with the television broadcast
+3	a package be covering time on both the television meaning that for the first time digital streams of the game would carry all national advertising in pattern with the television broadcast
+3	a package be covering time on digital broadcasts of the game meaning that for the first time digital streams of the game would carry all national advertising in pattern with the television broadcast
+3	covering time on both the television be meaning that for the first time digital streams of the game would carry all national advertising in pattern with the television broadcast
+3	covering time on digital broadcasts of the game be meaning that for the first time digital streams of the game would carry all national advertising in pattern with the television broadcast
+3	digital streams of the game would carry all national advertising in pattern with the television broadcast for the first time
+4	This would be the final year in a multi-year contract with Anheuser-Busch InBev
+4	Anheuser-Busch InBev allowed the beer manufacturer to air multiple advertisements during the game at a steep discount
+5	It was the final year also that Doritos held its Crash the Super Bowl contest
+5	Doritos is a longtime sponsor of the game
+5	Doritos held the Super Bowl contest
+5	its has Crash
+5	the Super Bowl contest allowed viewers to create their own Doritos ads for a chance to have it aired during the game
+5	their has own Doritos ads
+5	a chance be have it aired during the game
+5	it aired during the game
+6	Nintendo made their Super Bowl debut promoting the 20th anniversary of the PokÃ © mon video game also
+6	Nintendo made their Super Bowl debut promoting the 20th anniversary of the PokÃ © mon video media franchise also
+6	The PokÃ © mon Company made their Super Bowl debut promoting the 20th anniversary of the PokÃ © mon video game also
+6	The PokÃ © mon Company made their Super Bowl debut promoting the 20th anniversary of the PokÃ © mon video media franchise also
+6	Nintendo be promoting the 20th anniversary of the PokÃ © mon video game
+6	Nintendo be promoting the 20th anniversary of the PokÃ © mon video media franchise
+6	The PokÃ © mon Company be promoting the 20th anniversary of the PokÃ © mon video game
+6	The PokÃ © mon Company be promoting the 20th anniversary of the PokÃ © mon video media franchise
+6	their has Super Bowl debut

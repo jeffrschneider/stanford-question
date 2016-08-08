@@ -1,0 +1,10 @@
+1	Peyton Manning became the first quarterback ever to lead two different teams to multiple Super Bowls
+1	the first quarterback ever be lead two different teams to multiple Super Bowls
+2	He is the oldest quarterback also ever to play in a Super Bowl at age 39
+2	also the oldest quarterback be play ever in a Super Bowl at age 39
+3	The past record was held by John Elway
+3	John Elway led the Broncos to victory in Super Bowl XXXIII at age 38
+3	John Elway is Denver 's Executive Vice President currently of Football Operations
+3	John Elway is Denver 's Executive Vice President currently of General Manager
+3	Denver has Executive Vice President of Football Operations
+3	Denver has Executive Vice President of General Manager

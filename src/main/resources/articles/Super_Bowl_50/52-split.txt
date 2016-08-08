@@ -1,0 +1,39 @@
+1	Manning finished the game 13 of 23 for 141 yards with one interception
+1	Manning finished the game 13 of 23 for 141 yards with zero touchdowns
+2	Sanders was his top receiver with six receptions for 83 yards
+2	his has top receiver with six receptions for 83 yards
+3	Anderson was the game 's leading rusher with 90 yards along with four receptions for 10 yards
+3	Anderson was the game 's leading rusher with a touchdown along with four receptions for 10 yards
+3	the game has leading rusher with 90 yards
+3	the game has leading rusher with a touchdown
+4	Miller had six total tackles
+4	Miller had 2Â 1/2 sacks
+4	Miller had two forced fumbles
+4	six total tackles is five solo
+4	2Â 1/2 sacks is five solo
+4	two forced fumbles is five solo
+5	Ware had five total tackles
+5	Ware had two sacks
+6	Ward had seven total tackles
+6	Ward had a fumble recovery
+6	Ward had an interception
+7	McManus made all four of his field goals making him perfect on all 11 attempts during the post-season
+7	McManus be making him perfect on all 11 attempts during the post-season
+7	his has field goals
+7	him perfect on all 11 attempts during the post-season
+8	Newton completed 18 of 41 passes for 265 yards with one interception
+9	He was the team 's leading rusher also with 45 yards on six carries
+9	the team has leading rusher with 45 yards on six carries
+10	Brown caught four passes for 80 yards while Ginn had four receptions for 74
+10	Ginn had four receptions for 74
+11	Ealy was the top defensive performer for Carolina with four total tackles
+11	Ealy was the top defensive performer for Carolina with three sacks
+11	Ealy was the top defensive performer for Carolina with a forced fumble
+11	Ealy was the top defensive performer for Carolina with a fumble recovery
+11	Ealy was the top defensive performer for Carolina with an interception
+12	Defensive End Charles Johnson had four total tackles
+12	Defensive End Charles Johnson had a sack
+12	Defensive End Charles Johnson had a forced fumble
+13	Linebacker Luke Kuechly had 11 total tackles while Thomas Davis had seven despite playing just two weeks after breaking his right arm in the NFC title game
+13	Thomas Davis had seven
+13	his has right arm

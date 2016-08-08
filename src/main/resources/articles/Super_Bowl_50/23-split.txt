@@ -1,0 +1,4 @@
+1	The Panthers used the San Jose State practice facility
+1	The Panthers stayed at the San Jose Marriott
+2	The Broncos practiced at Stanford University
+2	The Broncos stayed at the Santa Clara Marriott

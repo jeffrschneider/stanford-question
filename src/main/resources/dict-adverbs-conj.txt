@@ -1,0 +1,41 @@
+# This is a comment
+#added by Greg
+
+accordingly
+additionally
+also
+besides
+comparatively
+consequently
+conversely
+finally
+further
+furthermore
+elsewhere
+equally
+hence
+henceforth
+however
+in addition
+in comparison
+in contrast
+indeed
+instead
+likewise
+meanwhile
+moreover
+namely
+nevertheless
+next
+nonetheless
+now
+otherwise
+rather
+similarly
+still
+subsequently
+then
+thereafter
+therefore
+thus
+yet

@@ -1,0 +1,25 @@
+# This is a comment
+#made by Greg
+
+believe
+concern
+disagree
+dislike
+doubt
+feel
+hate
+like
+love
+matter
+mind
+prefer
+promise
+realise
+realize
+remember
+seem
+suppose
+understand
+want
+weigh
+wish

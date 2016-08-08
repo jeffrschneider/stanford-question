@@ -1,0 +1,11 @@
+1	CBS provided digital streams of the game via CBSSports.com
+1	the CBS Sports apps on tablets
+1	the CBS Sports apps on Windows 10
+1	the CBS Sports apps on Xbox One
+1	the CBS Sports apps on other digital media players
+1	the CBS Sports apps on tablets
+1	the CBS Sports apps on Windows 10
+1	the CBS Sports apps on Xbox One
+1	the CBS Sports apps on other digital media players
+2	streaming on smartphones was provided to Verizon Wireless customers via the NFL Mobile service Due to Verizon Communications exclusivity only
+3	The ESPN Deportes Spanish broadcast was made available through WatchESPN

@@ -1,0 +1,12 @@
+1	Host Committee has vowed to be the most giving Super Bowl ever
+1	Host Committee will dedicate 25 percent of all money
+1	The Super Bowl 50 it raises for philanthropic causes in the Bay Area
+1	it The Super Bowl 50 raises for philanthropic causes in the Bay Area
+2	The committee created the 50 fund as its philanthropic initiative
+2	The committee focuses on providing grants to aid with youth development
+2	The committee focuses on providing grants to aid with community investment
+2	The committee focuses on providing grants to aid with sustainable environments
+2	its has philanthropic initiative
+2	providing grants be aid with youth development
+2	providing grants be aid with community investment
+2	providing grants be aid with sustainable environments

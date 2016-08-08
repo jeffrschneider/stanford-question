@@ -1,0 +1,20 @@
+1	the NFL announced that the practice of branding Super Bowl games with Roman numerals would be temporarily suspended On June 4 2014
+1	the NFL announced that the game would be named using Arabic numerals as Super Bowl 50 as opposed to Super Bowl L. On June 4 2014
+1	Roman numerals is a practice established at Super Bowl V
+1	a practice be established at Super Bowl V
+1	the practice of branding Super Bowl games with Roman numerals would be suspended temporarily
+1	the game would be named using Arabic numerals as Super Bowl 50 as opposed to Super Bowl L.
+1	Super Bowl be opposed 50 as to Super Bowl L.
+2	The use of Roman numerals will be reinstated for Super Bowl LI
+3	Jaime Weston is the league 's vice president of brand
+3	Jaime Weston is the league 's vice president of creative
+3	the league has vice president of brand
+3	the league has vice president of creative
+3	Jaime Weston explained that a primary reason for the change was the difficulty of designing an aesthetically pleasing logo with the letter L using the standardized logo template introduced at Super Bowl XLV
+3	a primary reason for the change was the difficulty of designing an aesthetically pleasing logo with the letter L using the standardized logo template introduced at Super Bowl XLV
+3	designing an aesthetically pleasing logo with the letter L be using the standardized logo template introduced at Super Bowl XLV
+3	the standardized logo template be introduced at Super Bowl XLV
+4	The logo deviates from the template by featuring large numerals colored in gold behind the Vince Lombardi Trophy as in the standard logo also
+4	The logo deviates from the template by featuring large numerals colored in gold underneath as in the standard logo also
+4	The logo deviates from the template by featuring large numerals colored in gold in silver as in the standard logo also
+4	large numerals be colored in gold

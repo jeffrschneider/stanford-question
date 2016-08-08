@@ -1,0 +1,22 @@
+1	Concerns were raised over whether Levi 's Stadium 's field was of a high enough quality to host a Super Bowl
+1	Levi has Stadium 's
+1	Levi 's Stadium has field
+1	Levi 's Stadium 's field was of a high enough quality to host a Super Bowl
+1	the field had to be re-sodded multiple times due to various issues during the inaugural season
+1	a portion of the turf collapsed under Baltimore Ravens kicker Justin Tucker causing him to slip a field goal although the field has not had any major issues since during a week 6 game earlier in the 2015 season
+1	a portion of the turf collapsed under Baltimore Ravens kicker Justin Tucker causing him to miss a field goal although the field has not had any major issues since during a week 6 game earlier in the 2015 season
+1	him to slip a field goal
+1	him to miss a field goal
+1	the field has not had any major issues since
+2	Super Bowl games be played at natural grass stadiums
+2	the NFL re-sodded the field with a new playing surface a hybrid Bermuda 419 turf As is customary for Super Bowl games played at natural grass stadiums
+3	NFL Braves field director Ed Mangan stated that the field was in great shape for gameday
+3	Atlanta Braves field director Ed Mangan stated that the field was in great shape for gameday
+3	the field was in great shape for gameday
+4	the turf showed problem throughout the game with a number of players needing to change their cleats during the game slipping during plays all throughout the game However
+4	the turf showed problem throughout the game with a number of players needing to change their cleats during the player slipping during plays all throughout the game However
+4	players be needing to change their cleats during the game slipping during plays all throughout the game
+4	players be needing to change their cleats during the player slipping during plays all throughout the game
+4	their has cleats
+4	the game be slipping during plays all throughout the game
+4	the player be slipping during plays all throughout the game

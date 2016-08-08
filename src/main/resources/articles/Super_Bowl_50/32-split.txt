@@ -1,0 +1,15 @@
+1	the game was televised by CBS as part of a cycle between the three main broadcast television partners of the NFL In the United States
+2	The network has lead broadcast team of Jim Nantz
+2	The network has lead broadcast team of Phil Simms
+2	The network 's lead broadcast team of Jim Nantz called the contest with Tracy Wolfson on the sidelines
+2	The network 's lead broadcast team of Jim Nantz called the contest with Evan Washburn on the sidelines
+2	The network 's lead broadcast team of Phil Simms called the contest with Tracy Wolfson on the sidelines
+2	The network 's lead broadcast team of Phil Simms called the contest with Evan Washburn on the sidelines
+3	CBS introduced new features during the telecast including pylon cameras along with EyeVision 360â $ an array of 36 cameras along the upper deck
+3	CBS introduced new features during the telecast including pylon microphones along with EyeVision 360â $ an array of 36 cameras along the upper deck
+3	pylon cameras be $ along with EyeVision 360â an array of 36 cameras along the upper deck
+3	pylon microphones be $ along with EyeVision 360â an array of 36 cameras along the upper deck
+3	the upper deck can be used to provide a 360-degree view of plays
+3	the upper deck can be used to provide a 360-degree view of bullet time effects
+4	An earlier version of EyeVision was used in Super Bowl XXXV last
+4	the cameras were upgraded to 5K resolution for Super Bowl 50

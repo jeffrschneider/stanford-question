@@ -1,0 +1,37 @@
+1	ESPN Deportes announced that they had reached an agreement with CBS to be the exclusive Spanish-language broadcaster of the game marking the third dedicated Spanish-language broadcast of the Super Bowl On December 28 2015
+1	ESPN Deportes announced that they had reached an agreement with the NFL to be the exclusive Spanish-language broadcaster of the game marking the third dedicated Spanish-language broadcast of the Super Bowl On December 28 2015
+1	they be broadcaster the exclusive Spanish-language broadcaster of the game marking the third dedicated Spanish-language broadcast of the Super Bowl
+1	they had reached an agreement with CBS to be the exclusive Spanish-language broadcaster of the game marking the third dedicated Spanish-language broadcast of the Super Bowl
+1	they had reached an agreement with the NFL to be the exclusive Spanish-language broadcaster of the game marking the third dedicated Spanish-language broadcast of the Super Bowl
+1	to the exclusive Spanish-language broadcaster of the game be marking the third dedicated Spanish-language broadcast of the Super Bowl
+2	CBS does not have a Spanish-language outlet of its own Unlike NBC
+2	CBS does not have a Spanish-language outlet of its own Unlike Fox
+2	its has own
+2	a Spanish-language outlet of its own could broadcast the game though per league policy a separate Spanish play-by-play call was carried on CBS 's second audio program channel for over-the-air viewers
+2	a separate Spanish play-by-play call was carried on CBS 's second audio program channel for over-the-air viewers per league policy
+2	CBS has second audio program channel for over-the-air viewers
+3	The game was called by ESPN Deportes Monday Night Football commentary crew of Alvaro Martin
+3	The game was called by ESPN Deportes Monday Night Football commentary crew of Raul Allegre and sideline reporter John Sutcliffe
+3	The game was called by sideline reporter John Sutcliffe
+3	ESPN Deportes has Monday Night Football commentary crew of Alvaro Martin
+3	ESPN Deportes has Monday Night Football commentary crew of Raul Allegre and
+4	ESPN Deportes broadcast pre-game coverage while Martin contributed English-language reports for ESPN 's SportsCenter
+4	ESPN Deportes broadcast pre-game coverage while Allegre contributed English-language reports for ESPN 's SportsCenter and Mike & Mike
+4	ESPN Deportes broadcast pre-game coverage while Sutcliffe contributed English-language reports for ESPN 's SportsCenter and Mike & Mike
+4	ESPN Deportes broadcast pre-game coverage while Martin contributed English-language reports for Mike
+4	ESPN Deportes broadcast pre-game coverage while Martin contributed English-language reports for Mike
+4	ESPN Deportes broadcast post-game coverage while Martin contributed English-language reports for ESPN 's SportsCenter
+4	ESPN Deportes broadcast post-game coverage while Allegre contributed English-language reports for ESPN 's SportsCenter and Mike & Mike
+4	ESPN Deportes broadcast post-game coverage while Sutcliffe contributed English-language reports for ESPN 's SportsCenter and Mike & Mike
+4	ESPN Deportes broadcast post-game coverage while Martin contributed English-language reports for Mike
+4	ESPN Deportes broadcast post-game coverage while Martin contributed English-language reports for Mike
+4	Martin contributed English-language reports for ESPN 's SportsCenter
+4	Martin contributed English-language reports for Mike
+4	Martin contributed English-language reports for Mike
+4	Allegre contributed English-language reports for ESPN 's SportsCenter
+4	Allegre contributed English-language reports for Mike
+4	Allegre contributed English-language reports for Mike
+4	Sutcliffe contributed English-language reports for ESPN 's SportsCenter
+4	Sutcliffe contributed English-language reports for Mike
+4	Sutcliffe contributed English-language reports for Mike
+4	ESPN has SportsCenter

@@ -28,14 +28,12 @@ public class HomeCorefUtil {
     private static final PennTreebankLanguagePack languagePack = new PennTreebankLanguagePack();
     private static final GrammaticalStructureFactory structureFactory = languagePack.grammaticalStructureFactory();
 
-    public static void main(final String[] args) throws Exception {
-        final Dataset dataset = Dataset.loadDataset("dev-v1.0.json");
-        DatasetTest.entitySubstitution(dataset);
+    public static void apply(final Dataset dataset) {
         for (final Article article : dataset.getData()) {
             Collection<String> lastSingular = null, lastPlural = null, lastMale = null, lastFemale = null;
             for (final Paragraph paragraph : article.getParagraphs()) {
                 for (final Sentence sentence : paragraph.getContextSentences()) {
-                    if (sentence.text().contains("champion")) // Skips Stanford parse error
+                    if (sentence.text().contains("champion") || sentence.text().contains("The Super Bowl 50 Host")) // Skips Stanford parse error
                         continue;
 
                     // Populate an ordered map consisting of word index keys and word values
@@ -81,8 +79,6 @@ public class HomeCorefUtil {
                     else if (pluralCount != 0) // TODO: are all valid subjects nouns?
                         lastPlural = subjectIndexWordMap.values();
 
-                    System.out.println("Sentence: " + sentence.text());
-
                     // Iterate through the sentence replacing pronouns with the last subject of its type
                     final List<String> words = new ArrayList<>(sentence.words());
                     for (int i = 0; i < words.size(); i++) {
@@ -90,8 +86,6 @@ public class HomeCorefUtil {
                             final Collection<String> value = subjectIndexWordMap.keySet().iterator().next() > i
                                     ? lastLastMale : lastMale;
                             if (value != null) {
-                                System.out.println("\tReplacing: " + words.get(i));
-                                System.out.println("\tWith: " + value);
                                 words.remove(i);
                                 words.addAll(i, value);
                             }
@@ -99,17 +93,12 @@ public class HomeCorefUtil {
                             final Collection<String> value = subjectIndexWordMap.keySet().iterator().next() > i
                                     ? lastLastFemale : lastFemale;
                             if (value != null) {
-                                System.out.println("\tReplacing: " + words.get(i));
-                                System.out.println("\tWith: " + value);
-                                words.remove(i);
                                 words.addAll(i, value);
                             }
                         } else if (SINGULAR_PRONOUNS.contains(words.get(i).toLowerCase()) && lastSingular != null) {
                             final Collection<String> value = subjectIndexWordMap.keySet().iterator().next() > i
                                     ? lastLastSingular : lastSingular;
                             if (value != null) {
-                                System.out.println("\tReplacing: " + words.get(i));
-                                System.out.println("\tWith: " + value);
                                 words.remove(i);
                                 words.addAll(i, value);
                             }
@@ -117,16 +106,15 @@ public class HomeCorefUtil {
                             final Collection<String> value = subjectIndexWordMap.keySet().iterator().next() > i
                                     ? lastLastPlural : lastPlural;
                             if (value != null) {
-                                System.out.println("\tReplacing: " + words.get(i));
-                                System.out.println("\tWith: " + value);
                                 words.remove(i);
                                 words.addAll(i, value);
                             }
                         }
                     }
-                    System.out.println();
                 }
             }
+            // TODO: only first article
+            break;
         }
     }
 

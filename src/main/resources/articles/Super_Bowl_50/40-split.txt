@@ -1,0 +1,25 @@
+1	The flagship stations of each station in the markets of each team will carry their local play-by-play calls
+1	their has local play-by-play calls
+2	KOA 850 AM will carry the game with Dave Logan on play-by-play In Denver
+2	KOA 850 AM will carry the game with Ed McCaffrey on color commentary In Denver
+2	KRFX 103.5 FM will carry the game with Dave Logan on play-by-play In Denver
+2	KRFX 103.5 FM will carry the game with Ed McCaffrey on color commentary In Denver
+3	WBT is 1110 AM
+3	WBT will carry the game with Mick Mixon on play-by-play In North Carolina
+3	WBT will carry the game with Mick Mixon on Eugene Robinson and Jim Szoke on color commentary In North Carolina
+3	WBT will carry the game with Jim Szoke on color commentary In North Carolina
+4	WBT will simulcast the game on its sister station WBT-FM also
+4	its has sister station WBT-FM
+4	its sister station WBT-FM is 99.3 FM
+4	its sister station WBT-FM is based in Chester
+4	Chester is South Carolina
+5	KOA are both clear-channel stations
+5	WBT are both clear-channel stations
+5	the local broadcasts will be audible over much of the western United States after sunset for Denver As KOA are both clear-channel stations
+5	the local broadcasts will be audible over much of the western United States after the eastern United States throughout the game for Carolina As KOA are both clear-channel stations
+5	the local broadcasts will be audible over much of the western United States after sunset for Denver As WBT are both clear-channel stations
+5	the local broadcasts will be audible over much of the western United States after the eastern United States throughout the game for Carolina As WBT are both clear-channel stations
+6	the rest of the stations in the Broncos will carry the Westwood One feed In accordance with contractual rules
+6	the rest of the stations in the Panthers radio networks will carry the Westwood One feed In accordance with contractual rules
+6	the rest of the stations in the Broncos will not carry the game at all In accordance with contractual rules
+6	the rest of the stations in the Panthers radio networks will not carry the game at all In accordance with contractual rules

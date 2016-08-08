@@ -1,0 +1,30 @@
+#added by Greg:
+#believe, consider, declare, find, judge, keep, label, name, presume, pronounce, prove, rate, and think.
+
+believe
+bring
+catch
+consider
+declare
+drive
+find
+get
+judge
+keep
+label
+lay
+lead
+name
+place
+presume
+pronounce
+prove
+put
+rate
+set
+sit
+show
+stand
+slip
+take
+think

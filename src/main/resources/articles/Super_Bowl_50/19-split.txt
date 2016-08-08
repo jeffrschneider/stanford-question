@@ -1,0 +1,14 @@
+1	This was the first Super Bowl to feature a quarterback on both teams
+1	the first Super Bowl be feature a quarterback on both teams
+1	both teams was the # 1 pick in their draft classes
+1	their has draft classes
+2	Manning was the # 1 selection of the 1998 NFL draft while Newton was picked first in 2011
+2	Newton was picked first in 2011
+3	The matchup pits the top two picks of the 2011 draft against each other Newton for Carolina also
+3	The matchup pits the top two picks of Von Miller for Denver also
+4	Manning set the record for the largest age difference between opposing Super Bowl quarterbacks at 13 years also
+4	Manning set the record for the largest age difference between opposing Super Bowl quarterbacks at 48 days also
+4	Newton set the record for the largest age difference between opposing Super Bowl quarterbacks at 13 years also
+4	Newton set the record for the largest age difference between opposing Super Bowl quarterbacks at 48 days also
+4	Manning was 39
+4	Newton was 26 39

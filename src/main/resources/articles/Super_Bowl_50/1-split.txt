@@ -1,0 +1,18 @@
+1	The Panthers finished the regular season with a 15â $ 1 record
+1	quarterback Cam Newton was named the NFL Most Valuable Player
+1	the NFL Most Valuable Player is MVP
+2	They defeated the Arizona Cardinals 49â $ 15 in the NFC Championship Game Super Bowl appearance since the franchise was founded in 1995
+2	They defeated the Arizona Cardinals 49â $ advanced to their second Super Bowl appearance since the franchise was founded in 1995
+2	the Arizona Cardinals 49â $ 15 in the NFC Championship Game Super Bowl appearance since the franchise was founded in 1995
+2	the Arizona Cardinals 49â $ advanced to their second Super Bowl appearance since the franchise was founded in 1995
+2	their has second
+2	the franchise was founded in 1995
+3	The Broncos finished the regular season with a 12â $ 4 record
+3	The Broncos denied the New England Patriots a chance to defend their title from Super Bowl XLIX by defeating them 20â $ 18 in the AFC Championship Game
+3	denied the New England Patriots a chance be defend their title from Super Bowl XLIX by defeating them 20â $ 18 in the AFC Championship Game
+3	their has title
+3	them 20â $ 18 in the AFC Championship Game
+4	They joined the Patriots as one of four teams
+4	They joined Dallas Cowboys as one of four teams
+4	They joined Pittsburgh Steelers as one of four teams
+4	four teams have made eight appearances in the Super Bowl

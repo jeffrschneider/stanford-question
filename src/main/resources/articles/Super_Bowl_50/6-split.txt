@@ -1,0 +1,15 @@
+1	The league announced on October 16 2012 that the two finalists were Sun Life Stadium
+1	The league announced on October 16 2012 that the two finalists were Levi 's Stadium
+1	the two finalists were Sun Life Stadium
+1	the two finalists were Levi 's Stadium
+1	Levi has Stadium
+2	The South Florida/Miami area has hosted the event 10 times tied for most with New Orleans with the most recent one being Super Bowl XLIV in 2010 previously
+2	the most recent one being Super Bowl XLIV in 2010
+3	The San Francisco Bay Area last hosted in 1985 be held at Stanford Stadium in Stanford California
+3	1985 is Super Bowl XIX
+3	The San Francisco Bay Area last hosted in 1985 held at Stanford Stadium in Stanford California won by the home team 49ers
+4	The Miami bid depended on whether the stadium underwent renovations
+4	the stadium underwent renovations
+5	the Florida legislature refused to approve the funding plan to pay for the renovations dealing a significant blow to Miami 's chances However on May 3 2013
+5	to approve the funding plan be pay for the renovations
+5	Miami has chances
